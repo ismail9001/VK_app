@@ -13,7 +13,7 @@
 		FA52105A2532E9EB00D84397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5210592532E9EB00D84397 /* Assets.xcassets */; };
 		FA52105D2532E9EB00D84397 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA52105B2532E9EB00D84397 /* LaunchScreen.storyboard */; };
 		FA5210662533319900D84397 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5210652533319900D84397 /* LoginFormController.swift */; };
-		FA52106C253334CF00D84397 /* 128px-VK.com-logo.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA52106B253334CF00D84397 /* 128px-VK.com-logo.svg.png */; };
+		FACFEF0E253733630039AD6F /* 128px-VK.com-logo.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,6 @@
 		FA52105C2532E9EB00D84397 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA52105E2532E9EB00D84397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA5210652533319900D84397 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
-		FA52106B253334CF00D84397 /* 128px-VK.com-logo.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "128px-VK.com-logo.svg.png"; path = "../../../../Downloads/128px-VK.com-logo.svg.png"; sourceTree = "<group>"; };
 		FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "128px-VK.com-logo.svg.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +63,6 @@
 				FA521068253331A200D84397 /* controller */,
 				FA5210502532E9E700D84397 /* AppDelegate.swift */,
 				FA5210522532E9E700D84397 /* SceneDelegate.swift */,
-				FA52106B253334CF00D84397 /* 128px-VK.com-logo.svg.png */,
 				FA5210592532E9EB00D84397 /* Assets.xcassets */,
 				FA52105E2532E9EB00D84397 /* Info.plist */,
 			);
@@ -155,8 +153,8 @@
 			files = (
 				FA52105D2532E9EB00D84397 /* LaunchScreen.storyboard in Resources */,
 				FA52105A2532E9EB00D84397 /* Assets.xcassets in Resources */,
-				FA52106C253334CF00D84397 /* 128px-VK.com-logo.svg.png in Resources */,
 				FA5210582532E9E700D84397 /* Main.storyboard in Resources */,
+				FACFEF0E253733630039AD6F /* 128px-VK.com-logo.svg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

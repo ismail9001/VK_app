@@ -14,22 +14,36 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBAction func testAction(_ sender: Any) {
-        print("failed999")
     }
-    //@IBAction func loginButton(_ sender: Any) {
-    //    print("failed999")
-    //    let login = usernameInput.text!
-    //    let password = passwordInput.text!
-    //
-    //    if login == "admin" && password == "123456" {
-    //        print("success")
-    //    } else {
-    //        print("failed")
-    //    }
-    //}
     
     @IBAction func scrollTapped(_ sender: UIGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if loginCheck() == false {
+            showError("Ошибка", "Неверные данные пользователя")
+            return false
+        } else {
+            return true
+        }
+    }
+    func loginCheck() -> Bool{
+        //let login = usernameInput.text!
+        //let password = passwordInput.text!
+        
+        let login = "admin"
+        let password = "123456"
+        
+        return login == "admin" && password == "123456"
+    }
+    
+    func showError(_ errorTitle: String, _ errorMessage: String) {
+        let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
