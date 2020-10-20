@@ -19,6 +19,7 @@ class LoginFormController: UIViewController {
     @IBAction func scrollTapped(_ sender: UIGestureRecognizer) {
         view.endEditing(true)
     }
+    // MARK: - Segues
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if loginCheck() == false {
@@ -46,6 +47,12 @@ class LoginFormController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -57,6 +64,7 @@ class LoginFormController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    //MARK: - keyboard events
     // Когда клавиатура появляется
     @objc func keyboardWillShow(notification: Notification) {
         // Получаем размер клавиатуры
@@ -78,11 +86,6 @@ class LoginFormController: UIViewController {
         scrollView?.contentInset = contentInsets
         print(#function)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-    }
+
     
 }
