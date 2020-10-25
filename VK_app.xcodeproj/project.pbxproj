@@ -25,6 +25,8 @@
 		FA52105D2532E9EB00D84397 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA52105B2532E9EB00D84397 /* LaunchScreen.storyboard */; };
 		FA5210662533319900D84397 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5210652533319900D84397 /* LoginFormController.swift */; };
 		FACFEF0E253733630039AD6F /* 128px-VK.com-logo.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */; };
+		FAFB2E252540D12300C68268 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E242540D12300C68268 /* Photo.swift */; };
+		FAFB2E2D2542160300C68268 /* LikeHeart.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E2C2542160300C68268 /* LikeHeart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		FA52105E2532E9EB00D84397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA5210652533319900D84397 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "128px-VK.com-logo.svg.png"; sourceTree = "<group>"; };
+		FAFB2E242540D12300C68268 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		FAFB2E2C2542160300C68268 /* LikeHeart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeHeart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 				FA2D73ED253B10FB003FAAD4 /* User.swift */,
 				FA2D73F0253B1172003FAAD4 /* Group.swift */,
 				FA2D7421253F2118003FAAD4 /* Lorem.swift */,
+				FAFB2E242540D12300C68268 /* Photo.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 		FA521069253331AB00D84397 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				FAFB2E2F254218E200C68268 /* custom */,
 				FA52105B2532E9EB00D84397 /* LaunchScreen.storyboard */,
 				FA2D73E2253B0C12003FAAD4 /* FriendsViewCell.swift */,
 				FA2D741A253B35AA003FAAD4 /* FriendPhotosViewCell.swift */,
@@ -141,6 +147,14 @@
 				FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		FAFB2E2F254218E200C68268 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				FAFB2E2C2542160300C68268 /* LikeHeart.swift */,
+			);
+			path = custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,10 +237,12 @@
 				FA2D73E9253B0F4B003FAAD4 /* GroupsViewCell.swift in Sources */,
 				FA5210512532E9E700D84397 /* AppDelegate.swift in Sources */,
 				FA2D741B253B35AA003FAAD4 /* FriendPhotosViewCell.swift in Sources */,
+				FAFB2E252540D12300C68268 /* Photo.swift in Sources */,
 				FA5210532532E9E700D84397 /* SceneDelegate.swift in Sources */,
 				FA2D73E3253B0C12003FAAD4 /* FriendsViewCell.swift in Sources */,
 				FA2D7422253F2118003FAAD4 /* Lorem.swift in Sources */,
 				FA2D73DA253B0B29003FAAD4 /* GroupsViewController.swift in Sources */,
+				FAFB2E2D2542160300C68268 /* LikeHeart.swift in Sources */,
 				FA2D73EE253B10FB003FAAD4 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

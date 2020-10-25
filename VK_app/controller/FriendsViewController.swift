@@ -37,9 +37,8 @@ class FriendsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FriendsViewCell
         let user = users[indexPath.row]
         cell.friendName.text = user.name
-        cell.friendPhoto.image = UIImage(named: user.photo)
-        cell.friendPhoto.layer.cornerRadius = cell.friendPhoto.frame.size.width / 2
-        cell.friendPhoto.clipsToBounds = true
+        cell.photoImage.image = UIImage(named: user.photo)
+        
         return cell
     }
     
@@ -80,18 +79,18 @@ class FriendsViewController: UITableViewController {
      */
     
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let controller = segue.destination as? FriendPhotosViewController,
               let indexPath = tableView.indexPathForSelectedRow
         else { return }
         
         controller.title = users[indexPath.row].name
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    
     
 }

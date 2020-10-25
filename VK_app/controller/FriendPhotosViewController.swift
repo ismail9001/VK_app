@@ -8,8 +8,7 @@
 import UIKit
 
 class FriendPhotosViewController: UICollectionViewController {
-    var photos = ["1","2","3","4","5","6","7","8"]
-
+    var photos = Photo.manyPhotos
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,9 +43,14 @@ class FriendPhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
-        cell.friendPhoto.image = UIImage(named: photos[indexPath.row])
+        cell.friendPhoto.image = UIImage(named: photos[indexPath.row].photo)
+        cell.photoLike.likeCount.text = String(photos[indexPath.row].likes)
+        cell.photoLike.likeCount.textColor = photos[indexPath.row].liked ? .red : .gray
+        cell.photoLike.button.tintColor = photos[indexPath.row].liked ? .red : .gray
+        cell.photoLike.button.setImage(photos[indexPath.row].liked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart"), for: .normal)
         return cell
     }
+
 }
 
 extension FriendPhotosViewController: UICollectionViewDelegateFlowLayout {
@@ -64,7 +68,7 @@ extension FriendPhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
