@@ -7,8 +7,35 @@
 
 import UIKit
 
-class FriendPhotosViewController: UICollectionViewController {
-    var photos = Photo.manyPhotos
+protocol LikeUpdatingProtocol {
+    func likeUnlikeFunc(indexPath: IndexPath)
+}
+
+class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtocol {
+    
+    var photos : [Photo] = []
+    var delegate : UserUpdatingProtocol?
+    func likeUnlikeFunc(indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
+        if (!photos[indexPath.row].liked) {
+            print(true)
+            delegate?.printtext(text: "kkj")
+            photos[indexPath.row].likes += 1
+            photos[indexPath.row].liked = true
+            cell.photoLike.likeCount.textColor = .red
+            cell.photoLike.button.tintColor = .red
+            cell.photoLike.button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            print(false)
+            photos[indexPath.row].likes -= 1
+            photos[indexPath.row].liked = false
+            cell.photoLike.likeCount.textColor = .gray
+            cell.photoLike.button.tintColor = .gray
+            cell.photoLike.button.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        collectionView.reloadItems(at: [indexPath])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,15 +45,19 @@ class FriendPhotosViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
+        delegate?.printtext(text: "8888")
+        guard let controller = segue.destination as? FriendsViewController
+        else {
+            delegate?.printtext(text: "0000")
+            return }
+        delegate?.printtext(text: "9999")
+        // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -48,9 +79,10 @@ class FriendPhotosViewController: UICollectionViewController {
         cell.photoLike.likeCount.textColor = photos[indexPath.row].liked ? .red : .gray
         cell.photoLike.button.tintColor = photos[indexPath.row].liked ? .red : .gray
         cell.photoLike.button.setImage(photos[indexPath.row].liked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart"), for: .normal)
+        cell.photoLike.delegate = self
         return cell
     }
-
+    
 }
 
 extension FriendPhotosViewController: UICollectionViewDelegateFlowLayout {

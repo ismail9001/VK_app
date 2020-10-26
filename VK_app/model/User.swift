@@ -10,11 +10,11 @@ import Foundation
 struct User {
     var name: String
     var photo: String //будет ссылкой на файл?
-    //var groups: [Group]
+    var photos: [Photo]
     //var friends: [User] = []
     
     static var oneUser: User{
-        return User(name: Lorem.fullName, photo: String(Int.random(in: 1...15)))
+        return User(name: Lorem.fullName, photo: String(Int.random(in: 1...15)), photos: Photo.manyPhotos)
     }
     
     static var manyUsers: [User] {

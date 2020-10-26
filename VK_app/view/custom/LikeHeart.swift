@@ -10,6 +10,7 @@ class LikeHeart: UIControl {
     // MARK: - Views
     var likeCount = UILabel()
     var button = UIButton(type: UIButton.ButtonType.custom)
+    var delegate: LikeUpdatingProtocol?
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -36,20 +37,18 @@ class LikeHeart: UIControl {
         self.addSubview(stackView)
         backgroundColor = .white
     }
-    
-    @objc private func likeTap(_ sender: UIView) {
-        //обрабатываю нажатие без изменения самих данных - ЗДЕСЬ СОСТОИТ САМА ПРОБЛЕМА
-        if (self.likeCount.text == "0") {
-            self.likeCount.textColor = .red
-            self.likeCount.text = "1"
-            self.button.setImage( UIImage(systemName: "heart.fill"), for: .normal)
-            self.button.tintColor = .red
-        } else {
-            self.likeCount.textColor = .gray
-            self.likeCount.text = "0"
-            self.button.setImage( UIImage(systemName: "heart"), for: .normal)
-            self.button.tintColor = .gray
+    private func getIndexPath() -> IndexPath? {
+        guard let superView = self.superview?.superview?.superview as? UICollectionView else {
+            print("superview is not a cell")
+            return nil
         }
-        print(#function)
+        let indexPath = superView.indexPath(for: self.superview?.superview as! UICollectionViewCell )
+        return indexPath
+    }
+    @objc private func likeTap(_ sender: UIView) {
+        if let indexPath = getIndexPath()
+        {
+            delegate?.likeUnlikeFunc(indexPath: indexPath)
+        }
     }
 }

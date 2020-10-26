@@ -7,17 +7,19 @@
 
 import UIKit
 
-class FriendsViewController: UITableViewController {
+protocol UserUpdatingProtocol {
+    func printtext(text: String)
+}
+class FriendsViewController: UITableViewController, UserUpdatingProtocol {
     
     let users = User.manyUsers
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func printtext(text: String) {
+        print("text")
     }
     
     // MARK: - Table view data source
@@ -38,7 +40,6 @@ class FriendsViewController: UITableViewController {
         let user = users[indexPath.row]
         cell.friendName.text = user.name
         cell.photoImage.image = UIImage(named: user.photo)
-        
         return cell
     }
     
@@ -51,17 +52,6 @@ class FriendsViewController: UITableViewController {
      }
      */
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
     
     /*
      // Override to support rearranging the table view.
@@ -88,9 +78,19 @@ class FriendsViewController: UITableViewController {
         else { return }
         
         controller.title = users[indexPath.row].name
+        controller.photos = users[indexPath.row].photos
+        controller.delegate = self
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
     
-    
+    @IBAction func updateUser(segue: UIStoryboardSegue) {
+        print("77777")
+        // Проверяем идентификатор, чтобы убедиться, что это нужный переход
+        if segue.identifier == "updateUser" {
+            // Получаем ссылку на контроллер, с которого осуществлен переход
+            let friendPhotosViewController = segue.source as! FriendPhotosViewController
+            print("777")
+        }
+    }
 }

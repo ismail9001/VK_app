@@ -357,7 +357,7 @@
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="QDl-lA-LXF" customClass="FriendPhotosViewCell" customModule="VK_app" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1" width="128" height="138"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="h5s-mX-JIv" customClass="Like" customModule="VK_app" customModuleProvider="target">
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="h5s-mX-JIv">
                                     <rect key="frame" x="0.0" y="0.0" width="128" height="138"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -385,7 +385,7 @@
                                 <size key="customSize" width="128" height="138"/>
                                 <connections>
                                     <outlet property="friendPhoto" destination="XjX-BB-8oj" id="PkK-HO-ldr"/>
-                                    <outlet property="photoLike" destination="ss6-5K-Dfw" id="VPB-ua-hBs"/>
+                                    <outlet property="photoLike" destination="ss6-5K-Dfw" id="GPO-x5-P3O"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -395,8 +395,12 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" id="quo-pE-6Et"/>
+                    <connections>
+                        <segue destination="IjS-tA-EBg" kind="unwind" identifier="updateUser" unwindAction="updateUserWithSegue:" id="goi-X1-m4W"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61R-pC-IDm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="IjS-tA-EBg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3601.449275362319" y="76.339285714285708"/>
         </scene>
