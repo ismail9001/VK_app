@@ -21,11 +21,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         delegate?.printtext(text: "kkj")
         
         photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
-        cell.photoLike.likeCount.textColor = photos[indexPath.row].liked ? .gray : .red
-        cell.photoLike.button.tintColor = photos[indexPath.row].liked ? .gray : .red
-        cell.photoLike.button.setImage(photos[indexPath.row].liked ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill"), for: .normal)
         photos[indexPath.row].liked.toggle()
-        collectionView.reloadItems(at: [indexPath])
     }
     
     override func viewDidLoad() {
@@ -67,11 +63,9 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
         cell.friendPhoto.image = UIImage(named: photos[indexPath.row].photo)
-        cell.photoLike.likeCount.text = String(photos[indexPath.row].likes)
-        cell.photoLike.likeCount.textColor = photos[indexPath.row].liked ? .red : .gray
-        cell.photoLike.button.tintColor = photos[indexPath.row].liked ? .red : .gray
-        cell.photoLike.button.setImage(photos[indexPath.row].liked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart"), for: .normal)
-        cell.photoLike.delegate = self
+        cell.photoLike.liked = photos[indexPath.row].liked
+        cell.photoLike.likeCount = photos[indexPath.row].likes
+        //cell.photoLike.delegate = self
         return cell
     }
     

@@ -61,6 +61,8 @@ class Avatar: UIView {
         super.init(coder: aDecoder)
         setup()
     }
+    
+    //MARK: - Functions
     private func setup() {
         self.addSubview(avatarShadow)
         self.addSubview(avatarPhoto)

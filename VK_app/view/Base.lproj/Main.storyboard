@@ -394,22 +394,25 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XjX-BB-8oj">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ss6-5K-Dfw" customClass="LikeHeart" customModule="VK_app" customModuleProvider="target">
-                                            <rect key="frame" x="93" y="118" width="35" height="20"/>
+                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="ss6-5K-Dfw" customClass="LikeHeart" customModule="VK_app" customModuleProvider="target">
+                                            <rect key="frame" x="92" y="118" width="36" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="35" id="P0B-Kk-FS6"/>
-                                                <constraint firstAttribute="height" constant="20" id="ldc-p6-CzM"/>
+                                                <constraint firstAttribute="height" constant="20" id="5fy-uz-ey0"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="36" id="oLf-y4-I9W"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="liked" value="NO"/>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="ss6-5K-Dfw" secondAttribute="bottom" id="3iw-ZO-k2M"/>
                                         <constraint firstItem="XjX-BB-8oj" firstAttribute="top" secondItem="h5s-mX-JIv" secondAttribute="top" id="Brm-ls-Z2V"/>
                                         <constraint firstAttribute="bottom" secondItem="XjX-BB-8oj" secondAttribute="bottom" constant="10" id="HKf-B1-Sv9"/>
                                         <constraint firstItem="XjX-BB-8oj" firstAttribute="width" secondItem="h5s-mX-JIv" secondAttribute="width" id="LGg-TT-FKX"/>
                                         <constraint firstItem="XjX-BB-8oj" firstAttribute="leading" secondItem="h5s-mX-JIv" secondAttribute="leading" id="Qfg-Ka-JlH"/>
                                         <constraint firstAttribute="trailing" secondItem="XjX-BB-8oj" secondAttribute="trailing" id="Vt1-7N-S7r"/>
-                                        <constraint firstAttribute="trailing" secondItem="ss6-5K-Dfw" secondAttribute="trailing" id="gAN-xE-qg8"/>
+                                        <constraint firstAttribute="bottom" secondItem="ss6-5K-Dfw" secondAttribute="bottom" id="h0s-jj-hbx"/>
+                                        <constraint firstAttribute="trailing" secondItem="ss6-5K-Dfw" secondAttribute="trailing" id="lqh-Hf-aec"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="128" height="138"/>
@@ -473,6 +476,11 @@
             <point key="canvasLocation" x="1769" y="885"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="ss6-5K-Dfw">
+            <size key="intrinsicContentSize" width="35" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="1" width="128" height="128"/>
         <image name="10" width="172" height="256"/>

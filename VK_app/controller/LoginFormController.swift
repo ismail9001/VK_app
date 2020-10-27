@@ -73,8 +73,6 @@ class LoginFormController: UIViewController {
         // Добавляем отступ внизу UIScrollView, равный размеру клавиатуры
         self.scrollView?.contentInset = contentInsets
         scrollView?.scrollIndicatorInsets = contentInsets
-        
-        print(#function)
     }
     
     //Когда клавиатура исчезает
@@ -82,7 +80,6 @@ class LoginFormController: UIViewController {
         // Устанавливаем отступ внизу UIScrollView, равный 0
         let contentInsets = UIEdgeInsets.zero
         scrollView?.contentInset = contentInsets
-        print(#function)
     }
 
     
