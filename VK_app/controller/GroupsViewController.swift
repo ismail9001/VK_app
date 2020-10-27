@@ -28,9 +28,8 @@ class GroupsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupsViewCell
         let group = groups[indexPath.row]
         cell.groupName.text = group.title
-        cell.groupPhoto.image = UIImage(named: group.photo)
-        cell.groupPhoto.layer.cornerRadius = cell.groupPhoto.frame.size.width / 2
-        cell.groupPhoto.clipsToBounds = true
+        cell.groupPhoto.avatarPhoto.image = UIImage(named: group.photo)
+        //cell.
         return cell
     }
     

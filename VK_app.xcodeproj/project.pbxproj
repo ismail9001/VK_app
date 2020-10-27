@@ -15,7 +15,6 @@
 		FA2D73E9253B0F4B003FAAD4 /* GroupsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D73E8253B0F4B003FAAD4 /* GroupsViewCell.swift */; };
 		FA2D73EE253B10FB003FAAD4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D73ED253B10FB003FAAD4 /* User.swift */; };
 		FA2D73F1253B1172003FAAD4 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D73F0253B1172003FAAD4 /* Group.swift */; };
-		FA2D7415253B2F0A003FAAD4 /* GroupSearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D7414253B2F0A003FAAD4 /* GroupSearchViewCell.swift */; };
 		FA2D741B253B35AA003FAAD4 /* FriendPhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D741A253B35AA003FAAD4 /* FriendPhotosViewCell.swift */; };
 		FA2D7422253F2118003FAAD4 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D7421253F2118003FAAD4 /* Lorem.swift */; };
 		FA5210512532E9E700D84397 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5210502532E9E700D84397 /* AppDelegate.swift */; };
@@ -27,6 +26,7 @@
 		FACFEF0E253733630039AD6F /* 128px-VK.com-logo.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */; };
 		FAFB2E252540D12300C68268 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E242540D12300C68268 /* Photo.swift */; };
 		FAFB2E2D2542160300C68268 /* LikeHeart.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E2C2542160300C68268 /* LikeHeart.swift */; };
+		FAFB2E3F25485C1700C68268 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E3E25485C1700C68268 /* Avatar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +38,6 @@
 		FA2D73E8253B0F4B003FAAD4 /* GroupsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewCell.swift; sourceTree = "<group>"; };
 		FA2D73ED253B10FB003FAAD4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA2D73F0253B1172003FAAD4 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		FA2D7414253B2F0A003FAAD4 /* GroupSearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchViewCell.swift; sourceTree = "<group>"; };
 		FA2D741A253B35AA003FAAD4 /* FriendPhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosViewCell.swift; sourceTree = "<group>"; };
 		FA2D7421253F2118003FAAD4 /* Lorem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
 		FA52104D2532E9E700D84397 /* VK_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +51,7 @@
 		FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "128px-VK.com-logo.svg.png"; sourceTree = "<group>"; };
 		FAFB2E242540D12300C68268 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		FAFB2E2C2542160300C68268 /* LikeHeart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeHeart.swift; sourceTree = "<group>"; };
+		FAFB2E3E25485C1700C68268 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,12 +130,10 @@
 		FA521069253331AB00D84397 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				FAFB2E4225488E9D00C68268 /* cells */,
 				FAFB2E2F254218E200C68268 /* custom */,
 				FA52105B2532E9EB00D84397 /* LaunchScreen.storyboard */,
-				FA2D73E2253B0C12003FAAD4 /* FriendsViewCell.swift */,
 				FA2D741A253B35AA003FAAD4 /* FriendPhotosViewCell.swift */,
-				FA2D73E8253B0F4B003FAAD4 /* GroupsViewCell.swift */,
-				FA2D7414253B2F0A003FAAD4 /* GroupSearchViewCell.swift */,
 				FA5210562532E9E700D84397 /* Main.storyboard */,
 			);
 			path = view;
@@ -153,8 +151,18 @@
 			isa = PBXGroup;
 			children = (
 				FAFB2E2C2542160300C68268 /* LikeHeart.swift */,
+				FAFB2E3E25485C1700C68268 /* Avatar.swift */,
 			);
 			path = custom;
+			sourceTree = "<group>";
+		};
+		FAFB2E4225488E9D00C68268 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA2D73E8253B0F4B003FAAD4 /* GroupsViewCell.swift */,
+				FA2D73E2253B0C12003FAAD4 /* FriendsViewCell.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,8 +239,8 @@
 				FA2D73E0253B0B8F003FAAD4 /* GroupsSearchViewController.swift in Sources */,
 				FA2D73DD253B0B55003FAAD4 /* FriendPhotosViewController.swift in Sources */,
 				FA2D73D7253B0B03003FAAD4 /* FriendsViewController.swift in Sources */,
+				FAFB2E3F25485C1700C68268 /* Avatar.swift in Sources */,
 				FA2D73F1253B1172003FAAD4 /* Group.swift in Sources */,
-				FA2D7415253B2F0A003FAAD4 /* GroupSearchViewCell.swift in Sources */,
 				FA5210662533319900D84397 /* LoginFormController.swift in Sources */,
 				FA2D73E9253B0F4B003FAAD4 /* GroupsViewCell.swift in Sources */,
 				FA5210512532E9E700D84397 /* AppDelegate.swift in Sources */,

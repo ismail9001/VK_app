@@ -39,7 +39,7 @@ class FriendsViewController: UITableViewController, UserUpdatingProtocol {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FriendsViewCell
         let user = users[indexPath.row]
         cell.friendName.text = user.name
-        cell.photoImage.image = UIImage(named: user.photo)
+        cell.friendPhoto.avatarPhoto.image = UIImage(named: user.photo)
         return cell
     }
     

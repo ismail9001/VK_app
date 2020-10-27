@@ -16,36 +16,28 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     var photos : [Photo] = []
     var delegate : UserUpdatingProtocol?
     func likeUnlikeFunc(indexPath: IndexPath) {
+        //Оптимизировать
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
-        if (!photos[indexPath.row].liked) {
-            print(true)
-            delegate?.printtext(text: "kkj")
-            photos[indexPath.row].likes += 1
-            photos[indexPath.row].liked = true
-            cell.photoLike.likeCount.textColor = .red
-            cell.photoLike.button.tintColor = .red
-            cell.photoLike.button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        } else {
-            print(false)
-            photos[indexPath.row].likes -= 1
-            photos[indexPath.row].liked = false
-            cell.photoLike.likeCount.textColor = .gray
-            cell.photoLike.button.tintColor = .gray
-            cell.photoLike.button.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
+        delegate?.printtext(text: "kkj")
+        
+        photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
+        cell.photoLike.likeCount.textColor = photos[indexPath.row].liked ? .gray : .red
+        cell.photoLike.button.tintColor = photos[indexPath.row].liked ? .gray : .red
+        cell.photoLike.button.setImage(photos[indexPath.row].liked ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill"), for: .normal)
+        photos[indexPath.row].liked.toggle()
         collectionView.reloadItems(at: [indexPath])
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Do any additional setup after loading the view.
     }
-
-
+    
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,20 +50,20 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-
+    
     // MARK: UICollectionViewDataSource
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return photos.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
         cell.friendPhoto.image = UIImage(named: photos[indexPath.row].photo)

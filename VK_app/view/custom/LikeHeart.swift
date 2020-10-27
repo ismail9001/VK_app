@@ -7,9 +7,18 @@
 import UIKit
 
 class LikeHeart: UIControl {
+    
     // MARK: - Views
-    var likeCount = UILabel()
-    var button = UIButton(type: UIButton.ButtonType.custom)
+    var likeCount: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    var likeButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    
+    // MARK: - Delegates
     var delegate: LikeUpdatingProtocol?
     
     // MARK: - Init
@@ -20,13 +29,14 @@ class LikeHeart: UIControl {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         setup()
     }
+    
+    // MARK: - Functions
     private func setup() {
         likeCount.frame = bounds
-        button.addTarget(self, action: #selector(likeTap(_:)), for: .touchUpInside)
-        let stackView = UIStackView(arrangedSubviews: [likeCount, button])
+        likeButton.addTarget(self, action: #selector(likeTap(_:)), for: .touchUpInside)
+        let stackView = UIStackView(arrangedSubviews: [likeCount, likeButton])
         stackView.spacing = 1
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -37,6 +47,7 @@ class LikeHeart: UIControl {
         self.addSubview(stackView)
         backgroundColor = .white
     }
+    //вопрос преподавателю - как иначе вытащить порядок ячейки
     private func getIndexPath() -> IndexPath? {
         guard let superView = self.superview?.superview?.superview as? UICollectionView else {
             print("superview is not a cell")

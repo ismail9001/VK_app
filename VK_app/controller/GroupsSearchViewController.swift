@@ -33,12 +33,10 @@ class GroupsSearchViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupSearchViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupsViewCell
         let group = groups[indexPath.row]
         cell.groupName.text = group.title
-        cell.groupImage.image = UIImage(named: group.photo)
-        cell.groupImage.layer.cornerRadius = cell.groupImage.frame.size.width / 2
-        cell.groupImage.clipsToBounds = true
+        cell.groupPhoto.avatarPhoto.image = UIImage(named: group.photo)
         return cell
     }
 

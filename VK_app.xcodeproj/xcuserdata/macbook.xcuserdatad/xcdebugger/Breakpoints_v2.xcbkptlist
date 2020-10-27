@@ -162,114 +162,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VK_app/view/FriendsViewCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "FriendsViewCell"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2 - 9868b9af85453f43"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendsViewCell.friendPhoto.getter : Swift.Optional&lt;__C.UIImageView&gt;"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/%D1%83%D1%80%D0%BE%D0%BA%D0%B8/VK_app/VK_app/view/FriendsViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "126">
-               </Location>
-               <Location
-                  uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2 - 9b0d8a94101bf35f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendsViewCell.friendPhoto.setter : Swift.Optional&lt;__C.UIImageView&gt;"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/%D1%83%D1%80%D0%BE%D0%BA%D0%B8/VK_app/VK_app/view/FriendsViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "164">
-               </Location>
-               <Location
-                  uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2 - 2a82b32673e0be7e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendsViewCell.friendPhoto.modify : Swift.Optional&lt;__C.UIImageView&gt;"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/%D1%83%D1%80%D0%BE%D0%BA%D0%B8/VK_app/VK_app/view/FriendsViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2 - de1e7de4d47f669e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendsViewCell.friendPhoto.modify : Swift.Optional&lt;__C.UIImageView&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/%D1%83%D1%80%D0%BE%D0%BA%D0%B8/VK_app/VK_app/view/FriendsViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2 - 9aaa2cb97c5851f4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendsViewCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; VK_app.FriendsViewCell"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/%D1%83%D1%80%D0%BE%D0%BA%D0%B8/VK_app/VK_app/view/FriendsViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "456">
-               </Location>
-               <Location
-                  uuid = "1F3133B2-28F3-45C0-98DA-923A603A8AE2 - 6810b3693d50de8a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendsViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;VK_app.FriendsViewCell&gt;"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/%D1%83%D1%80%D0%BE%D0%BA%D0%B8/VK_app/VK_app/view/FriendsViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "367">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "850BD0EC-1D02-4C0F-A90E-6C35C79CC6AC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -277,8 +169,8 @@
             filePath = "VK_app/view/FriendsViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
             landmarkName = "awakeFromNib()"
             landmarkType = "7">
          </BreakpointContent>
@@ -293,8 +185,8 @@
             filePath = "VK_app/view/custom/LikeHeart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "setup()"
             landmarkType = "7">
          </BreakpointContent>
