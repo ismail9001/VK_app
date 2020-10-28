@@ -395,7 +395,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="ss6-5K-Dfw" customClass="LikeHeart" customModule="VK_app" customModuleProvider="target">
-                                            <rect key="frame" x="92" y="118" width="36" height="20"/>
+                                            <rect key="frame" x="88" y="118" width="40" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="5fy-uz-ey0"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="36" id="oLf-y4-I9W"/>
@@ -428,12 +428,8 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" id="quo-pE-6Et"/>
-                    <connections>
-                        <segue destination="IjS-tA-EBg" kind="unwind" identifier="updateUser" unwindAction="updateUserWithSegue:" id="goi-X1-m4W"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61R-pC-IDm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="IjS-tA-EBg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3601.449275362319" y="76.339285714285708"/>
         </scene>

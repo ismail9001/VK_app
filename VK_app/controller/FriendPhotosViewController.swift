@@ -14,38 +14,29 @@ protocol LikeUpdatingProtocol {
 class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtocol {
     
     var photos : [Photo] = []
+    var user : User?
+    var userIndexPath: IndexPath = [0,0]
     var delegate : UserUpdatingProtocol?
     func likeUnlikeFunc(indexPath: IndexPath) {
-        //Оптимизировать
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
-        delegate?.printtext(text: "kkj")
-        
+        print(delegate)
         photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
         photos[indexPath.row].liked.toggle()
+        delegate?.updateUser(photos: photos, userIndexPath: userIndexPath)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //Guard сделать
+        self.title = user!.name
+        photos = user!.photos
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
         // Do any additional setup after loading the view.
     }
     
     
     // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        delegate?.printtext(text: "8888")
-        guard let controller = segue.destination as? FriendsViewController
-        else {
-            delegate?.printtext(text: "0000")
-            return }
-        delegate?.printtext(text: "9999")
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
     
     // MARK: UICollectionViewDataSource
     
@@ -65,7 +56,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         cell.friendPhoto.image = UIImage(named: photos[indexPath.row].photo)
         cell.photoLike.liked = photos[indexPath.row].liked
         cell.photoLike.likeCount = photos[indexPath.row].likes
-        //cell.photoLike.delegate = self
+        cell.photoLike.delegate = self
         return cell
     }
     

@@ -8,18 +8,18 @@
 import UIKit
 
 protocol UserUpdatingProtocol {
-    func printtext(text: String)
+    func updateUser(photos: [Photo], userIndexPath: IndexPath)
 }
 class FriendsViewController: UITableViewController, UserUpdatingProtocol {
     
-    let users = User.manyUsers
+    var users = User.manyUsers
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    func printtext(text: String) {
-        print("text")
+    func updateUser(photos: [Photo], userIndexPath: IndexPath) {
+        users[userIndexPath.row].photos = photos
     }
     
     // MARK: - Table view data source
@@ -77,20 +77,10 @@ class FriendsViewController: UITableViewController, UserUpdatingProtocol {
               let indexPath = tableView.indexPathForSelectedRow
         else { return }
         
-        controller.title = users[indexPath.row].name
-        controller.photos = users[indexPath.row].photos
+        controller.user = users[indexPath.row]
+        controller.userIndexPath = indexPath
         controller.delegate = self
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-    }
-    
-    @IBAction func updateUser(segue: UIStoryboardSegue) {
-        print("77777")
-        // Проверяем идентификатор, чтобы убедиться, что это нужный переход
-        if segue.identifier == "updateUser" {
-            // Получаем ссылку на контроллер, с которого осуществлен переход
-            let friendPhotosViewController = segue.source as! FriendPhotosViewController
-            print("777")
-        }
     }
 }

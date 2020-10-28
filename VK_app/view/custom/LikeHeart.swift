@@ -88,7 +88,7 @@ class LikeHeart: UIControl {
         likeButton.setImage(liked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart"), for: .normal)
         likeCount = liked ? likeCount + 1 : likeCount - 1
     }
-    //вопрос преподавателю - как иначе вытащить порядок ячейки
+    //ВОПРОС - как иначе вытащить порядок ячейки? передавать ее изначально в этот вью?
     private func getIndexPath() -> IndexPath? {
         guard let superView = self.superview?.superview?.superview as? UICollectionView else {
             print("superview is not a cell")
@@ -101,9 +101,9 @@ class LikeHeart: UIControl {
     @objc private func likeTap(_ sender: UIView) {
         liked.toggle()
         //sendActions(for: .valueChanged)
-        //if let indexPath = getIndexPath()
-        //{
-        //    delegate?.likeUnlikeFunc(indexPath: indexPath)
-       // }
+        if let indexPath = getIndexPath()
+        {
+            delegate?.likeUnlikeFunc(indexPath: indexPath)
+        }
     }
 }
