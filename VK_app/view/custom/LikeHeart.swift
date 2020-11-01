@@ -29,7 +29,6 @@ class LikeHeart: UIControl {
      }
     
     // MARK: - Views
-    @IBInspectable
     private var likeCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +44,7 @@ class LikeHeart: UIControl {
         button.addTarget(self, action: #selector(likeTap(_:)), for: .touchUpInside)
         return button
     }()
-    //stackview не подходит нужно переделать на view
+    //stackview не подходит из-за внешнего вида, нужно переделать на view
     private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +55,7 @@ class LikeHeart: UIControl {
     }()
     
     // MARK: - Delegates
-    var delegate: LikeUpdatingProtocol?
+    weak var delegate: LikeUpdatingProtocol?
     
     // MARK: - Init
     override init(frame: CGRect) {

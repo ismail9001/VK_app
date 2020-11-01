@@ -8,11 +8,19 @@
 import UIKit
 
 class GroupsSearchViewController: UITableViewController {
-    var groups = Group.manyGroup
-    
+    @IBOutlet weak var searchBar: UISearchBar!
+    var groups = Group.manyGroup {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    var unfilteredGroups: [Group] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        searchBar.placeholder = "Find a group"
+        searchBar.delegate = self
+        unfilteredGroups = groups
+        self.hideKeyboardWhenTappedAround()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -39,5 +47,25 @@ class GroupsSearchViewController: UITableViewController {
         cell.groupPhoto.avatarPhoto.image = UIImage(named: group.photo)
         return cell
     }
+}
 
+extension GroupsSearchViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchText ==  "") {
+            groups = unfilteredGroups
+            return
+        }
+        groups = unfilteredGroups.filter{ $0.title.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        groups = unfilteredGroups
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+     {
+        self.dismissKeyboard()
+     }
 }

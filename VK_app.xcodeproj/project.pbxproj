@@ -23,6 +23,10 @@
 		FA52105A2532E9EB00D84397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA5210592532E9EB00D84397 /* Assets.xcassets */; };
 		FA52105D2532E9EB00D84397 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA52105B2532E9EB00D84397 /* LaunchScreen.storyboard */; };
 		FA5210662533319900D84397 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5210652533319900D84397 /* LoginFormController.swift */; };
+		FACBD5F4254C3BE400BAFCA8 /* LetterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBD5F3254C3BE400BAFCA8 /* LetterPicker.swift */; };
+		FACBD5FD254D6A2A00BAFCA8 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBD5FC254D6A2A00BAFCA8 /* CustomHeaderView.swift */; };
+		FACBD600254D6A4F00BAFCA8 /* CustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACBD5FF254D6A4F00BAFCA8 /* CustomHeaderView.xib */; };
+		FACBD604254D7E7500BAFCA8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBD603254D7E7500BAFCA8 /* SearchBar.swift */; };
 		FACFEF0E253733630039AD6F /* 128px-VK.com-logo.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */; };
 		FAFB2E252540D12300C68268 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E242540D12300C68268 /* Photo.swift */; };
 		FAFB2E2D2542160300C68268 /* LikeHeart.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB2E2C2542160300C68268 /* LikeHeart.swift */; };
@@ -49,6 +53,10 @@
 		FA52105E2532E9EB00D84397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA5210652533319900D84397 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		FA52106F2533350B00D84397 /* 128px-VK.com-logo.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "128px-VK.com-logo.svg.png"; sourceTree = "<group>"; };
+		FACBD5F3254C3BE400BAFCA8 /* LetterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPicker.swift; sourceTree = "<group>"; };
+		FACBD5FC254D6A2A00BAFCA8 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		FACBD5FF254D6A4F00BAFCA8 /* CustomHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeaderView.xib; sourceTree = "<group>"; };
+		FACBD603254D7E7500BAFCA8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		FAFB2E242540D12300C68268 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		FAFB2E2C2542160300C68268 /* LikeHeart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeHeart.swift; sourceTree = "<group>"; };
 		FAFB2E3E25485C1700C68268 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
@@ -133,7 +141,6 @@
 				FAFB2E4225488E9D00C68268 /* cells */,
 				FAFB2E2F254218E200C68268 /* custom */,
 				FA52105B2532E9EB00D84397 /* LaunchScreen.storyboard */,
-				FA2D741A253B35AA003FAAD4 /* FriendPhotosViewCell.swift */,
 				FA5210562532E9E700D84397 /* Main.storyboard */,
 			);
 			path = view;
@@ -152,6 +159,10 @@
 			children = (
 				FAFB2E2C2542160300C68268 /* LikeHeart.swift */,
 				FAFB2E3E25485C1700C68268 /* Avatar.swift */,
+				FACBD5F3254C3BE400BAFCA8 /* LetterPicker.swift */,
+				FACBD5FC254D6A2A00BAFCA8 /* CustomHeaderView.swift */,
+				FACBD5FF254D6A4F00BAFCA8 /* CustomHeaderView.xib */,
+				FACBD603254D7E7500BAFCA8 /* SearchBar.swift */,
 			);
 			path = custom;
 			sourceTree = "<group>";
@@ -159,8 +170,9 @@
 		FAFB2E4225488E9D00C68268 /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				FA2D73E8253B0F4B003FAAD4 /* GroupsViewCell.swift */,
 				FA2D73E2253B0C12003FAAD4 /* FriendsViewCell.swift */,
+				FA2D73E8253B0F4B003FAAD4 /* GroupsViewCell.swift */,
+				FA2D741A253B35AA003FAAD4 /* FriendPhotosViewCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -222,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACBD600254D6A4F00BAFCA8 /* CustomHeaderView.xib in Resources */,
 				FA52105D2532E9EB00D84397 /* LaunchScreen.storyboard in Resources */,
 				FA52105A2532E9EB00D84397 /* Assets.xcassets in Resources */,
 				FA5210582532E9E700D84397 /* Main.storyboard in Resources */,
@@ -243,12 +256,15 @@
 				FA2D73F1253B1172003FAAD4 /* Group.swift in Sources */,
 				FA5210662533319900D84397 /* LoginFormController.swift in Sources */,
 				FA2D73E9253B0F4B003FAAD4 /* GroupsViewCell.swift in Sources */,
+				FACBD5F4254C3BE400BAFCA8 /* LetterPicker.swift in Sources */,
 				FA5210512532E9E700D84397 /* AppDelegate.swift in Sources */,
 				FA2D741B253B35AA003FAAD4 /* FriendPhotosViewCell.swift in Sources */,
+				FACBD5FD254D6A2A00BAFCA8 /* CustomHeaderView.swift in Sources */,
 				FAFB2E252540D12300C68268 /* Photo.swift in Sources */,
 				FA5210532532E9E700D84397 /* SceneDelegate.swift in Sources */,
 				FA2D73E3253B0C12003FAAD4 /* FriendsViewCell.swift in Sources */,
 				FA2D7422253F2118003FAAD4 /* Lorem.swift in Sources */,
+				FACBD604254D7E7500BAFCA8 /* SearchBar.swift in Sources */,
 				FA2D73DA253B0B29003FAAD4 /* GroupsViewController.swift in Sources */,
 				FAFB2E2D2542160300C68268 /* LikeHeart.swift in Sources */,
 				FA2D73EE253B10FB003FAAD4 /* User.swift in Sources */,

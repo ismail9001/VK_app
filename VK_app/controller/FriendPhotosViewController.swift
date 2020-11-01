@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol LikeUpdatingProtocol {
+protocol LikeUpdatingProtocol: class {
     func likeUnlikeFunc(indexPath: IndexPath)
 }
 
@@ -15,14 +15,11 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     
     var photos : [Photo] = []
     var user : User?
-    var userIndexPath: IndexPath = [0,0]
     var delegate : UserUpdatingProtocol?
     func likeUnlikeFunc(indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
-        print(delegate)
         photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
         photos[indexPath.row].liked.toggle()
-        delegate?.updateUser(photos: photos, userIndexPath: userIndexPath)
+        delegate?.updateUser(photos: photos, id: user?.id ?? 0)
     }
     
     override func viewDidLoad() {
