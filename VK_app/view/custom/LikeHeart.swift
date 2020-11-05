@@ -11,32 +11,34 @@ class LikeHeart: UIControl {
     
     private var color: UIColor = .gray {
         didSet{
-                likeCountLabel.textColor = color
-                likeButton.tintColor = color
-            }
+            likeCountLabel.textColor = color
+            likeButton.tintColor = color
         }
+    }
     
     var liked: Bool = false {
         didSet {
             updateLike()
         }
     }
-
+    
     var likeCount: Int = 0 {
         didSet {
-            likeCountLabel.text = "\(likeCount)"
+            UIView.transition(with: likeCountLabel, duration: 0.25, options: [.curveEaseInOut, .transitionFlipFromLeft], animations: {
+                self.likeCountLabel.text = "\(self.likeCount)"
+            }, completion: nil)
         }
-     }
+    }
     
     // MARK: - Views
-    private var likeCountLabel: UILabel = {
+    var likeCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.text = "0"
         return label
     }()
-    private var likeButton: UIButton = {
+    var likeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -44,11 +46,10 @@ class LikeHeart: UIControl {
         button.addTarget(self, action: #selector(likeTap(_:)), for: .touchUpInside)
         return button
     }()
-    //stackview не подходит из-за внешнего вида, нужно переделать на view
-    private var stackView: UIStackView = {
+    var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 4
+        stackView.spacing = 20
         stackView.axis = .horizontal
         stackView.alignment = .trailing
         return  stackView
@@ -71,8 +72,7 @@ class LikeHeart: UIControl {
     // MARK: - Functions
     private func setup() {
         addSubview(stackView)
-        stackView.addArrangedSubview(likeCountLabel)
-        stackView.addArrangedSubview(likeButton)
+        stackView.addArrangedSubview(getGroupedViews([likeCountLabel, likeButton]))
         backgroundColor = .white
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
@@ -96,13 +96,24 @@ class LikeHeart: UIControl {
         let indexPath = superView.indexPath(for: self.superview?.superview as! UICollectionViewCell )
         return indexPath
     }
+    
+    func getGroupedViews (_ views: [UIView])-> UIView{
+        let stackView = UIStackView()
+        stackView.spacing = 4
+        for uiview in views {
+            stackView.addArrangedSubview(uiview)
+        }
+        return stackView
+    }
     //MARK: - Actions
     @objc private func likeTap(_ sender: UIView) {
         liked.toggle()
-        //sendActions(for: .valueChanged)
         if let indexPath = getIndexPath()
         {
             delegate?.likeUnlikeFunc(indexPath: indexPath)
         }
     }
+    
+    //MARK: - Animation
+
 }

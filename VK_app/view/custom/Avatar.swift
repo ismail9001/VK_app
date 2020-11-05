@@ -42,6 +42,7 @@ class Avatar: UIView {
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.isUserInteractionEnabled = true
         return image
     }()
     var avatarShadow: UIView = {
@@ -67,6 +68,9 @@ class Avatar: UIView {
         self.addSubview(avatarShadow)
         self.addSubview(avatarPhoto)
         self.backgroundColor = .clear
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped(tapGestureRecognizer:)))
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(tapGestureRecognizer)
         
         NSLayoutConstraint.activate([
             avatarShadow.topAnchor.constraint(equalTo: topAnchor),
@@ -97,5 +101,26 @@ class Avatar: UIView {
     private func updateImage(){
         avatarPhoto.image = image
         setNeedsDisplay()
+    }
+    
+    //MARK: -Animations
+    
+    @objc func viewTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIView
+        UIView.animate(withDuration: 0.3,
+            animations: {
+                self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            },
+            completion: { _ in
+                UIView.animate(withDuration: 1,
+                               delay: 0,
+                               usingSpringWithDamping: 0.5,
+                               initialSpringVelocity: 1,
+                               options: [],
+                               animations: {
+                self.transform = CGAffineTransform.identity
+                })
+            })
     }
 }

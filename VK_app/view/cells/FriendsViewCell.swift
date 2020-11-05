@@ -15,5 +15,4 @@ class FriendsViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
 }

@@ -12,6 +12,10 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var usernameInput: UITextField!
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var loadingScreen: UIView!
+    @IBOutlet weak var circle1: UIImageView!
+    @IBOutlet weak var circle2: UIImageView!
+    @IBOutlet weak var circle3: UIImageView!
     
     @IBAction func testAction(_ sender: Any) {
     }
@@ -49,6 +53,7 @@ class LoginFormController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        closeLoadingScreen()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,5 +87,21 @@ class LoginFormController: UIViewController {
         scrollView?.contentInset = contentInsets
     }
 
+    //MARK: - Animations
     
+    private func closeLoadingScreen() {
+        UIView.animate(withDuration: 0.9, delay: 0, options: [.repeat, .autoreverse], animations: {
+            self.circle1.alpha = 0.1
+        })
+        UIView.animate(withDuration: 0.9, delay: 0.3, options: [.repeat, .autoreverse], animations: {
+            self.circle2.alpha = 0.1
+        })
+        UIView.animate(withDuration: 0.9, delay: 0.6, options: [.repeat, .autoreverse], animations: {
+            self.circle3.alpha = 0.1
+        })
+       UIView.animate(withDuration: 0.5, delay: 3, options: .curveEaseOut, animations: {
+            self.loadingScreen.alpha = 0
+        }, completion: nil)
+        //loadingScreen.layer.removeAllAnimations()
+    }
 }
