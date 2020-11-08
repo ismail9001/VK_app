@@ -118,37 +118,21 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.dashed.inset.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QvE-ef-Cwu">
-                                        <rect key="frame" x="194.5" y="370.5" width="25" height="19"/>
-                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6RY-oI-fS8">
+                                        <rect key="frame" x="167" y="369" width="80" height="80"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="0tn-5m-Gbi"/>
-                                            <constraint firstAttribute="width" constant="25" id="Asm-e5-zRj"/>
+                                            <constraint firstAttribute="width" constant="80" id="R5p-25-Kef"/>
+                                            <constraint firstAttribute="height" constant="80" id="ibS-3g-NVo"/>
                                         </constraints>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.dashed.inset.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1Tm-mH-32M">
-                                        <rect key="frame" x="154.5" y="370.5" width="25" height="19"/>
-                                        <color key="tintColor" systemColor="systemGrayColor"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.dashed.inset.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VMC-ak-PhP">
-                                        <rect key="frame" x="234.5" y="370.5" width="25" height="19"/>
-                                        <color key="tintColor" systemColor="systemGrayColor"/>
-                                    </imageView>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="1Tm-mH-32M" firstAttribute="width" secondItem="QvE-ef-Cwu" secondAttribute="width" id="5K7-l1-SEH"/>
+                                    <constraint firstItem="6RY-oI-fS8" firstAttribute="centerX" secondItem="2Zw-if-Ucj" secondAttribute="centerX" id="2L8-U7-M9x"/>
                                     <constraint firstItem="Cqv-px-EYI" firstAttribute="centerX" secondItem="2Zw-if-Ucj" secondAttribute="centerX" id="8Gw-Gw-Zkz"/>
-                                    <constraint firstItem="1Tm-mH-32M" firstAttribute="top" secondItem="Cqv-px-EYI" secondAttribute="bottom" constant="41" id="9Xw-Se-xbm"/>
-                                    <constraint firstItem="VMC-ak-PhP" firstAttribute="height" secondItem="QvE-ef-Cwu" secondAttribute="height" id="CAA-RI-n9j"/>
-                                    <constraint firstItem="QvE-ef-Cwu" firstAttribute="centerX" secondItem="2Zw-if-Ucj" secondAttribute="centerX" id="G9w-4a-vhA"/>
-                                    <constraint firstItem="VMC-ak-PhP" firstAttribute="width" secondItem="QvE-ef-Cwu" secondAttribute="width" id="GWM-UC-rf7"/>
-                                    <constraint firstItem="VMC-ak-PhP" firstAttribute="top" secondItem="Cqv-px-EYI" secondAttribute="bottom" constant="41" id="KIF-Hl-QXd"/>
-                                    <constraint firstItem="VMC-ak-PhP" firstAttribute="leading" secondItem="QvE-ef-Cwu" secondAttribute="trailing" constant="15" id="Ztl-Tk-hVv"/>
-                                    <constraint firstItem="QvE-ef-Cwu" firstAttribute="top" secondItem="Cqv-px-EYI" secondAttribute="bottom" constant="41" id="eja-kr-cHY"/>
+                                    <constraint firstItem="6RY-oI-fS8" firstAttribute="top" secondItem="Cqv-px-EYI" secondAttribute="bottom" constant="40" id="LBa-47-zVn"/>
                                     <constraint firstItem="Cqv-px-EYI" firstAttribute="centerY" secondItem="2Zw-if-Ucj" secondAttribute="centerY" constant="-100" id="iT1-bi-udA"/>
-                                    <constraint firstItem="QvE-ef-Cwu" firstAttribute="leading" secondItem="1Tm-mH-32M" secondAttribute="trailing" constant="15" id="kvV-0a-d3f"/>
-                                    <constraint firstItem="1Tm-mH-32M" firstAttribute="height" secondItem="QvE-ef-Cwu" secondAttribute="height" id="tgp-tL-I9n"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -170,9 +154,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="circle1" destination="1Tm-mH-32M" id="OvR-rR-a9Z"/>
-                        <outlet property="circle2" destination="QvE-ef-Cwu" id="334-xE-1WL"/>
-                        <outlet property="circle3" destination="VMC-ak-PhP" id="ofj-0r-Gmu"/>
+                        <outlet property="cloud" destination="6RY-oI-fS8" id="1fW-le-2Fn"/>
                         <outlet property="loadingScreen" destination="2Zw-if-Ucj" id="f5Y-tM-Jl0"/>
                         <outlet property="passwordInput" destination="p9Q-g6-ajq" id="336-3u-dV1"/>
                         <outlet property="scrollView" destination="4i8-uv-zTp" id="Bhc-Yb-Xjz"/>
@@ -528,9 +510,6 @@
                                                 <constraint firstAttribute="height" constant="20" id="5fy-uz-ey0"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="36" id="oLf-y4-I9W"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="liked" value="NO"/>
-                                            </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -609,7 +588,6 @@
         <image name="1" width="128" height="128"/>
         <image name="10" width="172" height="256"/>
         <image name="128px-VK.com-logo.svg.png" width="128" height="128"/>
-        <image name="circle.dashed.inset.fill" catalog="system" width="128" height="121"/>
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
