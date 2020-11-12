@@ -17,9 +17,8 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     var user : User?
     var delegate : UserUpdatingProtocol?
     let screenSize: CGRect = UIScreen.main.bounds
-    var currentImage = 0
     
-    var imagesSliderCenterView: UIImageView = {
+    var sliderCenterImage: UIImageView = {
         let image = UIImageView()
         image.frame = UIScreen.main.bounds
         image.backgroundColor = .black
@@ -28,7 +27,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         return image
     }()
     
-    var imagesSliderLeftView: UIImageView = {
+    var sliderLeftImage: UIImageView = {
         let image = UIImageView()
         let view = UIView()
         image.frame = UIScreen.main.bounds
@@ -38,7 +37,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         return image
     }()
     
-    var imagesSliderRightView: UIImageView = {
+    var sliderRightImage: UIImageView = {
         let image = UIImageView()
         image.frame = UIScreen.main.bounds
         image.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -47,21 +46,23 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         return image
     }()
     
-    var leftView: UIView = {
+    var sliderLeftView: UIView = {
         let view = UIView()
         view.frame = UIScreen.main.bounds
         view.backgroundColor = .black
         view.frame.origin.x = -1 * view.frame.maxX
         return view
     }()
-
-    var rightView: UIView = {
+    
+    var sliderRightView: UIView = {
         let view = UIView()
         view.frame = UIScreen.main.bounds
         view.backgroundColor = .black
         view.frame.origin.x = view.frame.maxX
         return view
     }()
+    
+    var animator: UIViewPropertyAnimator!
     
     func likeUnlikeFunc(indexPath: IndexPath) {
         photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
@@ -75,7 +76,6 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         self.title = user!.name
         photos = user!.photos
     }
-    
     
     // MARK: - Navigation
     
@@ -108,163 +108,137 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     //MARK: -SLIDER
     func imageTapped(image:UIImage, _ index: Int){
         
-        imagesSliderCenterView.image = image
-        imagesSliderCenterView.tag = index
+        sliderCenterImage.image = image
+        sliderCenterImage.tag = index
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage(_:)))
-        imagesSliderCenterView.addGestureRecognizer(tap)
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
-        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
-        imagesSliderCenterView.addGestureRecognizer(swipeRight)
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
-        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
-        imagesSliderCenterView.addGestureRecognizer(swipeLeft)
+        sliderCenterImage.addGestureRecognizer(tap)
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panSlider(_:)))
+        sliderCenterImage.addGestureRecognizer(pan)
+        sliderRightView.addSubview(sliderRightImage)
+        sliderLeftView.addSubview(sliderLeftImage)
         
-        rightView.addSubview(imagesSliderRightView)
-        leftView.addSubview(imagesSliderLeftView)
-        
-        self.view.addSubview(leftView)
-        self.view.addSubview(rightView)
-        self.view.addSubview(imagesSliderCenterView)
+        self.view.addSubview(sliderLeftView)
+        self.view.addSubview(sliderRightView)
+        self.view.addSubview(sliderCenterImage)
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    @objc func respondToSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
-
-        switch gesture.direction {
-        case UISwipeGestureRecognizer.Direction.left:
-            if imagesSliderCenterView.tag == photos.count - 1 {
-                imagesSliderCenterView.tag = 0
-                let positions = nearElements(index: imagesSliderCenterView.tag)
-                imagesSliderRightView.image = UIImage(named: photos[positions[2]].photo)
-                imagesSliderLeftView.image = UIImage(named: photos[positions[0]].photo)
-                UIView.animateKeyframes(withDuration: 1,
-                                        delay: 0,
-                                        options: [],
-                                        animations: {
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderCenterView.center.x -= self.imagesSliderCenterView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5 ,
-                                                               animations: {
-                                                                self.rightView.center.x -= self.rightView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0.5,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderRightView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                                               })
-                                        
-                                        },
-                                        completion: {_ in
-                                            self.imagesSliderCenterView.center.x += self.imagesSliderCenterView.frame.size.width
-                                            self.rightView.center.x += self.rightView.frame.size.width
-                                            self.imagesSliderRightView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                                            self.updateImageSlider(self.imagesSliderRightView.image!)
-                                        })
-            }else{
-                let positions = nearElements(index: imagesSliderCenterView.tag)
-                imagesSliderRightView.image = UIImage(named: photos[positions[2]].photo)
-                imagesSliderLeftView.image = UIImage(named: photos[positions[0]].photo)
-                UIView.animateKeyframes(withDuration: 1,
-                                        delay: 0,
-                                        options: [],
-                                        animations: {
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderCenterView.center.x -= self.imagesSliderCenterView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.rightView.center.x -= self.rightView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0.5,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderRightView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                                               })
-                                        },
-                                        completion: {_ in
-                                            self.imagesSliderCenterView.center.x += self.imagesSliderCenterView.frame.size.width
-                                            self.rightView.center.x += self.rightView.frame.size.width
-                                            self.imagesSliderRightView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                                            self.updateImageSlider(self.imagesSliderRightView.image!)
-                                        })
-                imagesSliderCenterView.tag += 1
+    @objc func panSlider(_ gesture: UIPanGestureRecognizer) {
+        
+        let translation = gesture.translation(in: self.view)
+        
+        switch gesture.horizontalDirection(sliderCenterImage) {
+        case .Left:
+            let positions = nearElements(index: sliderCenterImage.tag)
+            sliderRightImage.image = UIImage(named: photos[positions[2]].photo)
+            sliderLeftImage.image = UIImage(named: photos[positions[0]].photo)
+        case .Right:
+            let positions = nearElements(index: sliderCenterImage.tag)
+            sliderRightImage.image = UIImage(named: photos[positions[2]].photo)
+            sliderLeftImage.image = UIImage(named: photos[positions[0]].photo)
+        default:
+            return
+        }
+        switch gesture.state {
+        case .began:
+            animator = UIViewPropertyAnimator(duration: 1, curve: .linear)
+            if gesture.horizontalDirection(sliderCenterImage) == .Left{
+                animator.addAnimations {
+                    self.sliderCenterImage.center.x -= self.sliderCenterImage.frame.size.width
+                    self.sliderRightView.center.x -= self.sliderRightView.frame.size.width
+                    self.sliderRightImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                animator.addCompletion { _ in
+                    self.sliderCenterImage.center.x += self.sliderCenterImage.frame.size.width
+                    self.sliderRightView.center.x += self.sliderRightView.frame.size.width
+                    self.sliderRightImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                    self.sliderCenterImage.image = self.sliderRightImage.image
+                }
             }
-            
-        case UISwipeGestureRecognizer.Direction.right:
-            if imagesSliderCenterView.tag == 0 {
-                imagesSliderCenterView.tag = photos.count - 1
-                let positions = nearElements(index: imagesSliderCenterView.tag)
-                imagesSliderRightView.image = UIImage(named: photos[positions[2]].photo)
-                imagesSliderLeftView.image = UIImage(named: photos[positions[0]].photo)
-                UIView.animateKeyframes(withDuration: 1,
-                                        delay: 0,
-                                        options: [],
-                                        animations: {
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderCenterView.center.x += self.imagesSliderCenterView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.leftView.center.x += self.leftView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0.5,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderLeftView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                                               })
-                                        },
-                                        completion: {_ in
-                                            self.imagesSliderCenterView.center.x -= self.imagesSliderCenterView.frame.size.width
-                                            self.leftView.center.x -= self.leftView.frame.size.width
-                                            self.imagesSliderLeftView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                                            self.updateImageSlider(self.imagesSliderLeftView.image!)
-                                        })
-            }else{
-                let positions = nearElements(index: imagesSliderCenterView.tag)
-                imagesSliderRightView.image = UIImage(named: photos[positions[2]].photo)
-                imagesSliderLeftView.image = UIImage(named: photos[positions[0]].photo)
-                UIView.animateKeyframes(withDuration: 1,
-                                        delay: 0,
-                                        options: [],
-                                        animations: {
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderCenterView.center.x += self.imagesSliderCenterView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.leftView.center.x += self.leftView.frame.size.width
-                                                               })
-                                            UIView.addKeyframe(withRelativeStartTime: 0.5,
-                                                               relativeDuration: 0.5,
-                                                               animations: {
-                                                                self.imagesSliderLeftView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                                               })
-                                        },
-                                        completion: {_ in
-                                            self.imagesSliderCenterView.center.x -= self.imagesSliderCenterView.frame.size.width
-                                            self.leftView.center.x -= self.leftView.frame.size.width
-                                            self.imagesSliderLeftView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                                            self.updateImageSlider(self.imagesSliderLeftView.image!)
-                                        })
-                imagesSliderCenterView.tag -= 1
+            if gesture.horizontalDirection(sliderCenterImage) == .Right{
+                animator.addAnimations {
+                    self.sliderCenterImage.center.x += self.sliderCenterImage.frame.size.width
+                    self.sliderLeftView.center.x += self.sliderLeftView.frame.size.width
+                    self.sliderLeftImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                animator.addCompletion { _ in
+                    self.sliderCenterImage.center.x -= self.sliderCenterImage.frame.size.width
+                    self.sliderLeftView.center.x -= self.sliderLeftView.frame.size.width
+                    self.sliderLeftImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                    self.sliderCenterImage.image = self.sliderLeftImage.image
+                }
+            }
+            animator.pauseAnimation()
+        case .changed:
+            animator.fractionComplete =  abs(translation.x / self.view.frame.width)
+        case .ended:
+            if animator.fractionComplete > 0.5 {
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+                if gesture.horizontalDirection(sliderCenterImage) == .Left{
+                    if sliderCenterImage.tag == photos.count - 1{
+                        sliderCenterImage.tag = 0
+                    } else  {
+                        sliderCenterImage.tag += 1
+                    }
+                }
+                if gesture.horizontalDirection(sliderCenterImage) == .Right{
+                    if sliderCenterImage.tag == 0{
+                        sliderCenterImage.tag = photos.count - 1
+                    } else  {
+                        sliderCenterImage.tag -= 1
+                    }
+                }
+            }
+            else {
+                animator.stopAnimation(true)
+                if (translation.x < 0){
+                    UIView.animateKeyframes(withDuration: 1,
+                                            delay: 0,
+                                            options: [],
+                                            animations: {
+                                                UIView.addKeyframe(withRelativeStartTime: 0,
+                                                                   relativeDuration: 0.5,
+                                                                   animations: {
+                                                                    self.sliderCenterImage.center.x -= translation.x
+                                                                   })
+                                                UIView.addKeyframe(withRelativeStartTime: 0,
+                                                                   relativeDuration: 0.5 ,
+                                                                   animations: {
+                                                                    self.sliderRightView.center.x -= translation.x
+                                                                   })
+                                                UIView.addKeyframe(withRelativeStartTime: 0,
+                                                                   relativeDuration: 0.5,
+                                                                   animations: {
+                                                                    self.sliderRightImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                                                                   })
+                                            })
+                } else {
+                    UIView.animateKeyframes(withDuration: 1,
+                                            delay: 0,
+                                            options: [],
+                                            animations: {
+                                                UIView.addKeyframe(withRelativeStartTime: 0,
+                                                                   relativeDuration: 0.5,
+                                                                   animations: {
+                                                                    self.sliderCenterImage.center.x -= translation.x
+                                                                   })
+                                                UIView.addKeyframe(withRelativeStartTime: 0,
+                                                                   relativeDuration: 0.5 ,
+                                                                   animations: {
+                                                                    self.sliderLeftView.center.x -= translation.x
+                                                                   })
+                                                UIView.addKeyframe(withRelativeStartTime: 0,
+                                                                   relativeDuration: 0.5,
+                                                                   animations: {
+                                                                    self.sliderLeftImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                                                                   })
+                                            })
+                }
             }
         default:
-            break
+            return
         }
     }
     
@@ -294,8 +268,8 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     }
     
     func updateImageSlider(_ image: UIImage) {
-        imagesSliderCenterView.image = image
-        imagesSliderCenterView.frame.origin.x = 0
+        sliderCenterImage.image = image
+        sliderCenterImage.frame.origin.x = 0
     }
     
     //MARK: - Animation
@@ -352,5 +326,38 @@ extension FriendPhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+}
+
+extension UIPanGestureRecognizer {
     
+    enum GestureDirection {
+        case Up
+        case Down
+        case Left
+        case Right
+    }
+    
+    // Get current vertical direction
+    //
+    // - Parameter target: view target
+    // - Returns: current direction
+    func verticalDirection(_ target: UIView) -> GestureDirection {
+        return self.velocity(in: target).y > 0 ? .Down : .Up
+    }
+    
+    // Get current horizontal direction
+    //
+    // - Parameter target: view target
+    // - Returns: current direction
+    func horizontalDirection(_ target: UIView) -> GestureDirection {
+        return self.velocity(in: target).x > 0 ? .Right : .Left
+    }
+    
+    // Get a tuple for current horizontal/vertical direction
+    //
+    // - Parameter target: view target
+    // - Returns: current direction
+    func versus(_ target: UIView) -> (horizontal: GestureDirection, vertical: GestureDirection) {
+        return (self.horizontalDirection(_: target), self.verticalDirection(_: target))
+    }
 }
