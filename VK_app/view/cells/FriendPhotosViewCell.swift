@@ -10,4 +10,9 @@ import UIKit
 class FriendPhotosViewCell: UICollectionViewCell {
     @IBOutlet weak var friendPhoto: UIImageView!
     @IBOutlet weak var photoLike: LikeHeart!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 }

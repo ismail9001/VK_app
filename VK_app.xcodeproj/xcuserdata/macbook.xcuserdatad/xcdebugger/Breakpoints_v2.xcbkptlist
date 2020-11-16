@@ -194,16 +194,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "59C868C0-536D-45B8-9C8B-2F33F5A09161"
+            uuid = "EF36C739-CF75-4CEE-813F-368C61DF78CB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "imageTapped(image:_:)"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "dismissFullscreenImage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

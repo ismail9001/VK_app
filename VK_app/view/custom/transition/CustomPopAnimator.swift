@@ -20,8 +20,8 @@ final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         destination.view.frame = source.view.frame
         
-        destination.view.setAnchorPoint(CGPoint(x: 0, y: 0))
-        source.view.setAnchorPoint(CGPoint(x: 0, y: 0))
+        destination.view.setAnchorPoint(CGPoint(x: 1, y: 0))
+        source.view.setAnchorPoint(CGPoint(x: 1, y: 0))
         destination.view.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
         UIView.animateKeyframes(withDuration: self.transitionDuration(using: transitionContext),
@@ -38,13 +38,6 @@ final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                        animations: {
                                                         destination.view.transform = CGAffineTransform(rotationAngle: 0)
                                                        })
-                                    /*UIView.addKeyframe(withRelativeStartTime: 0.25,
-                                                       relativeDuration: 0.75,
-                                                       animations: {
-                                                        destination.view.transform = .identity
-                                                       })*/ 
-                                    
-                                    
                                 }) { finished in
             if finished && !transitionContext.transitionWasCancelled {
                 source.removeFromParent()

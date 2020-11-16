@@ -8,8 +8,8 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIVie
         
         transitionContext.containerView.addSubview(destination.view)
         destination.view.frame = source.view.frame
-        destination.view.setAnchorPoint(CGPoint(x: 0, y: 0))
-        source.view.setAnchorPoint(CGPoint(x: 0, y: 0))
+        destination.view.setAnchorPoint(CGPoint(x: 1, y: 0))
+        source.view.setAnchorPoint(CGPoint(x: 1, y: 0))
         
         destination.view.transform = CGAffineTransform(rotationAngle: 3 * CGFloat.pi / 2)
         UIView.animateKeyframes(withDuration: self.transitionDuration(using: transitionContext),
@@ -26,11 +26,6 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIVie
                                                        animations: {
                                                            destination.view.transform = CGAffineTransform(rotationAngle: 0)
                                     })
-                                        /*UIView.addKeyframe(withRelativeStartTime: 0.6,
-                                                       relativeDuration: 0.4,
-                                                       animations: {
-                                                           destination.view.transform = .identity
-                                    })*/
         }) { finished in
             if finished && !transitionContext.transitionWasCancelled {
                 source.view.transform = .identity

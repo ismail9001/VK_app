@@ -13,6 +13,7 @@ protocol LikeUpdatingProtocol: class {
 
 class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtocol {
     
+    let cellIndent: CGFloat = 20
     var photos : [Photo] = []
     var user : User?
     var delegate : UserUpdatingProtocol?
@@ -35,6 +36,12 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         image.contentMode = .scaleAspectFit
         image.isUserInteractionEnabled = true
         return image
+    }()
+    
+    var sliderCenterView: UIView = {
+        let view = UIView()
+        view.frame = UIScreen.main.bounds
+        return view
     }()
     
     var sliderRightImage: UIImageView = {
@@ -64,11 +71,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     
     var animator: UIViewPropertyAnimator!
     
-    func likeUnlikeFunc(indexPath: IndexPath) {
-        photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
-        photos[indexPath.row].liked.toggle()
-        delegate?.updateUser(photos: photos, id: user?.id ?? 0)
-    }
+    //MARK: - DidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +80,11 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         photos = user!.photos
     }
     
-    // MARK: - Navigation
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        sliderLeftView.removeFromSuperview()
+        sliderRightView.removeFromSuperview()
+    }
     
     // MARK: UICollectionViewDataSource
     
@@ -102,25 +109,52 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! FriendPhotosViewCell
-        self.imageTapped(image: cell.friendPhoto.image!, indexPath.row)
+        self.imageTapped(cell, indexPath)
     }
     
-    //MARK: -SLIDER
-    func imageTapped(image:UIImage, _ index: Int){
+    //MARK: -Slider
+    
+    func imageTapped( _ cell: FriendPhotosViewCell, _ indexPath: IndexPath){
         
-        sliderCenterImage.image = image
-        sliderCenterImage.tag = index
+        let rectOfCellInTableView = collectionView.layoutAttributesForItem(at: indexPath)
+        let rectOfCellInSuperview = collectionView.convert(rectOfCellInTableView!.frame, to: collectionView.superview)
+        sliderCenterImage.image = cell.friendPhoto.image
+        sliderCenterImage.tag = indexPath.row
+        //sliderCenterImage.contentMode = .scaleAspectFill
+        sliderCenterImage.frame = CGRect(x: rectOfCellInSuperview.minX, y: rectOfCellInSuperview.minY, width: rectOfCellInSuperview.width, height: rectOfCellInSuperview.height)
+        sliderCenterImage.alpha = cell.alpha
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage(_:)))
         sliderCenterImage.addGestureRecognizer(tap)
+        self.view.addSubview(sliderCenterImage)
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        //UIApplication.shared.windows.first?.layer.speed = 0.1
+        cell.friendPhoto.translatesAutoresizingMaskIntoConstraints = false
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panSlider(_:)))
         sliderCenterImage.addGestureRecognizer(pan)
+        self.view.addSubview(sliderCenterImage)
+        UIView.animateKeyframes(withDuration: 0.4,
+                                delay: 0,
+                                options: [],
+                                animations: {
+                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                                       relativeDuration: 0.4,
+                                                       animations: {
+                                                        self.sliderCenterImage.alpha = 1
+                                                       })
+                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                                       relativeDuration: 0.4 ,
+                                                       animations: { [self] in
+                                                        sliderCenterImage.frame = UIScreen.main.bounds
+                                                        sliderCenterImage.backgroundColor = .black
+                                                       })
+                                })
         sliderRightView.addSubview(sliderRightImage)
         sliderLeftView.addSubview(sliderLeftImage)
         
         self.view.addSubview(sliderLeftView)
         self.view.addSubview(sliderRightView)
-        self.view.addSubview(sliderCenterImage)
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
     }
@@ -190,6 +224,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
                         sliderCenterImage.tag -= 1
                     }
                 }
+                collectionView.scrollToItem(at: IndexPath(row: sliderCenterImage.tag, section: 0), at: .centeredVertically, animated: true)
             }
             else {
                 animator.stopAnimation(true)
@@ -243,7 +278,32 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     }
     
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-        sender.view?.removeFromSuperview()
+        
+        guard let centerView = sender.view else { return }
+        let indexPath = IndexPath(row: centerView.tag, section: 0)
+        guard let cell = self.collectionView.cellForItem(at: indexPath) else { return }
+        let rectOfCellInTableView = collectionView.layoutAttributesForItem(at: indexPath)
+        let rectOfCellInSuperview = collectionView.convert(rectOfCellInTableView!.frame, to: collectionView.superview)
+        UIView.animateKeyframes(withDuration: 0.4,
+                                delay: 0,
+                                options: [],
+                                animations: {
+                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                                       relativeDuration: 0.4,
+                                                       animations: {
+                                                        self.sliderCenterImage.alpha = cell.alpha
+                                                       })
+                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                                       relativeDuration: 0.4 ,
+                                                       animations: { [self] in
+                                                        sliderCenterImage.frame = rectOfCellInSuperview
+                                                        sliderCenterImage.backgroundColor = .clear
+                                                       })
+                                }, completion: { [self]_ in
+                                    sender.view?.removeFromSuperview()
+                                })
+        
+        
     }
     
     func nearElements (index: Int) -> [Int]{
@@ -301,30 +361,35 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
             cell.alpha = alpha
         }
     }
+    //MARK: - Functions
+    func likeUnlikeFunc(indexPath: IndexPath) {
+        photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
+        photos[indexPath.row].liked.toggle()
+        delegate?.updateUser(photos: photos, id: user?.id ?? 0)
+    }
 }
-
 //MARK: - Extensions
 
 extension FriendPhotosViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemsPerRow: CGFloat = 2
-        let paddingWidth = 20 * (itemsPerRow + 1)
+        let paddingWidth = cellIndent * (itemsPerRow + 1)
         let availableWidth = collectionView.frame.width - paddingWidth
         let widthPerItem = availableWidth / itemsPerRow
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        return UIEdgeInsets(top: cellIndent, left: cellIndent, bottom: cellIndent, right: cellIndent)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return cellIndent
     }
 }
 

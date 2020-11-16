@@ -10,7 +10,7 @@ import UIKit
 @IBDesignable
 class Loader: UIView {
     
-    let loaderDuration = 7
+    let loaderDuration = 0.2
     
     private var shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
