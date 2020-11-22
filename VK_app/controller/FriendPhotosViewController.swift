@@ -7,21 +7,20 @@
 
 import UIKit
 
-protocol LikeUpdatingProtocol: class {
+protocol LikeUpdatingDelegate: class {
     func likeUnlikeFunc(indexPath: IndexPath)
 }
 
-class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtocol {
+class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelegate {
     
     let cellIndent: CGFloat = 20
     var photos : [Photo] = []
     var user : User?
-    var delegate : UserUpdatingProtocol?
+    weak var delegate : UserUpdatingDelegate?
     let screenSize: CGRect = UIScreen.main.bounds
     
     var sliderCenterImage: UIImageView = {
         let image = UIImageView()
-        //image.backgroundColor = .black
         image.contentMode = .scaleAspectFit
         image.isUserInteractionEnabled = true
         return image
@@ -73,9 +72,9 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Guard сделать
-        self.title = user!.name
-        photos = user!.photos
+        guard let userProperty = user else { return }
+        self.title = userProperty.name
+        photos = userProperty.photos
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -114,48 +113,28 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     
     func imageTapped( _ cell: FriendPhotosViewCell, _ indexPath: IndexPath){
         
-        let rectOfCellInTableView = collectionView.layoutAttributesForItem(at: indexPath)
-        let rectOfCellInSuperview = collectionView.convert(rectOfCellInTableView!.frame, to: collectionView.superview)
+        guard let rectOfCellInTableView = collectionView.layoutAttributesForItem(at: indexPath) else { return }
+        let rectOfCellInSuperview = collectionView.convert(rectOfCellInTableView.frame, to: collectionView.superview)
         sliderCenterImage.image = cell.friendPhoto.image
         sliderCenterView.tag = indexPath.row
         sliderCenterView.frame = CGRect(x: rectOfCellInSuperview.minX, y: rectOfCellInSuperview.minY, width: rectOfCellInSuperview.width, height: rectOfCellInSuperview.height)
         sliderCenterView.addSubview(sliderCenterImage)
         sliderCenterView.layer.masksToBounds = true
+
         
-        //to func
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-        var x: CGFloat = 0
-        var y: CGFloat = 0
-        
-        //определяем расположение image для совпадения с image в ячейке
-        if (sliderCenterImage.image?.size.height)! / (sliderCenterImage.image?.size.width)! > 1 {
-            width = rectOfCellInSuperview.width
-            height = (rectOfCellInSuperview.width / (sliderCenterImage.image?.size.width)!)  * (sliderCenterImage.image?.size.height)!
-            y = ((rectOfCellInSuperview.height - (sliderCenterImage.image?.size.height)!) / 2 ) + 10
-        } else if (sliderCenterImage.image?.size.height)! / (sliderCenterImage.image?.size.width)! == 1 {
-            width = rectOfCellInSuperview.width
-            height = rectOfCellInSuperview.height
-        } else {
-            height = rectOfCellInSuperview.height
-            width = (rectOfCellInSuperview.height / (sliderCenterImage.image?.size.height)!)  * (sliderCenterImage.image?.size.width)!
-            x = (rectOfCellInSuperview.width - (sliderCenterImage.image?.size.width)!) / 2
-            y = 0
-        }
-        
-        sliderCenterImage.frame = CGRect(x: x, y: y, width: width, height: height)
+        sliderCenterImage.frame = imageRectPos(rectOfCellInTableView, rectOfCellInSuperview)
         sliderCenterView.alpha = cell.alpha
+        cell.alpha = 0
         
         //переделать на swipe вниз
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage(_:)))
         sliderCenterView.addGestureRecognizer(tap)
         
-        // проверить cell.friendPhoto.translatesAutoresizingMaskIntoConstraints = false
-        
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panSlider(_:)))
         sliderCenterView.addGestureRecognizer(pan)
         self.view.addSubview(sliderCenterView)
+        //UIApplication.shared.windows.first?.layer.speed = 0.1
         UIView.animateKeyframes(withDuration: 0.4,
                                 delay: 0,
                                 options: [],
@@ -168,8 +147,8 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
                                     UIView.addKeyframe(withRelativeStartTime: 0,
                                                        relativeDuration: 0.4 ,
                                                        animations: { [self] in
-                                                        sliderCenterView.frame = UIScreen.main.bounds
-                                                        sliderCenterImage.frame = UIScreen.main.bounds
+                                                        sliderCenterView.frame = screenSize
+                                                        sliderCenterImage.frame = screenSize
                                                         sliderCenterView.backgroundColor = .black
                                                        })
                                 })
@@ -223,6 +202,9 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
             animator.fractionComplete =  abs(translation.x / self.view.frame.width)
         case .ended:
             if animator.fractionComplete > 0.5 {
+                let indexPath = IndexPath(row: sliderCenterView.tag, section: 0)
+                let cell = collectionView.cellForItem(at: indexPath) as! FriendPhotosViewCell
+                cellAnimationCalculate(cell)
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
                 if gesture.horizontalDirection(sliderCenterView) == .Left{
                     if sliderCenterView.tag == photos.count - 1{
@@ -295,8 +277,10 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
         
         guard let centerView = sender.view else { return }
         let indexPath = IndexPath(row: centerView.tag, section: 0)
-        let rectOfCellInTableView = collectionView.layoutAttributesForItem(at: indexPath)
-        let rectOfCellInSuperview = collectionView.convert(rectOfCellInTableView!.frame, to: collectionView.superview)
+        guard let rectOfCellInTableView = collectionView.layoutAttributesForItem(at: indexPath) else { return }
+        let rectOfCellInSuperview = collectionView.convert(rectOfCellInTableView.frame, to: collectionView.superview)
+        let cell = collectionView.cellForItem(at: indexPath) as! FriendPhotosViewCell
+        cellAnimationCalculate(cell)
         UIView.animateKeyframes(withDuration: 0.4,
                                 delay: 0,
                                 options: [],
@@ -310,17 +294,12 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
                                                        relativeDuration: 0.4 ,
                                                        animations: { [self] in
                                                         sliderCenterView.frame = rectOfCellInSuperview
-                                                        sliderCenterImage.frame = CGRect(x: 0, y: 0, width: rectOfCellInSuperview.width, height: rectOfCellInSuperview.width)
+                                                        sliderCenterImage.frame = imageRectPos(rectOfCellInTableView, rectOfCellInSuperview)
                                                         sliderCenterImage.backgroundColor = .clear
                                                        })
                                 }, completion: { _ in
                                     sender.view?.removeFromSuperview()
                                 })
-    }
-    
-    func updateImageSlider(_ image: UIImage) {
-        sliderCenterImage.image = image
-        sliderCenterView.frame.origin.x = 0
     }
     
     //MARK: - Animation
@@ -338,20 +317,40 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
     }
     
     //MARK: - Functions
+    
+    //расчет области отображения ImageView на месте расположения ячейки
+    func imageRectPos(_ cellRect: UICollectionViewLayoutAttributes, _ frameRect: CGRect) -> CGRect {
+        
+        var width: CGFloat = frameRect.width
+        var height: CGFloat = frameRect.height
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        guard let image = sliderCenterImage.image else { return CGRect(x: x, y: y, width: width, height: height)}
+        
+        if image.size.height / image.size.width > 1 {
+            height = (frameRect.width / image.size.width) * image.size.height
+            y = (frameRect.height - height) / 2
+        } else if image.size.height / image.size.width != 1 {
+            width = (frameRect.height / image.size.height)  * image.size.width
+            x = (frameRect.width - width) / 2
+        }
+        
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
     //расчет альфа канала в зависимости от положения ячейки на экране
     func cellAnimationCalculate (_ cell: UICollectionViewCell) {
         let pos = self.collectionView.convert(cell.frame, to: self.view)
-        let screenSize: CGRect = UIScreen.main.bounds
         var alpha: CGFloat = 0
         if (pos.origin.y < cell.frame.height) {
             alpha = pos.origin.y / cell.frame.height
             alpha = alpha < 0 ? 0 : alpha
             cell.alpha = alpha
-        } else
-        if (pos.origin.y > screenSize.maxY - 2 * cell.frame.height) {
+        } else if (pos.origin.y > screenSize.maxY - 2 * cell.frame.height) {
             alpha = 1 - ((pos.origin.y - (screenSize.maxY - 2 * cell.frame.height)) / cell.frame.height)
             alpha = alpha < 0 ? 0 : alpha
             cell.alpha = alpha
+        } else {
+            cell.alpha = 1
         }
     }
     //расчет поведения лайка
@@ -380,6 +379,12 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingProtoc
             }
         }
         return []
+    }
+    
+    //обновляем свойства центрального экрана слайдера
+    func updateImageSlider(_ image: UIImage) {
+        sliderCenterImage.image = image
+        sliderCenterView.frame.origin.x = 0
     }
 }
 //MARK: - Extensions

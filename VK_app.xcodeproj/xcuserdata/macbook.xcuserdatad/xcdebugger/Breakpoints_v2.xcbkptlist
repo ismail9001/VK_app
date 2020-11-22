@@ -201,58 +201,10 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "imageTapped(_:_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FE58CBD5-26A4-40E3-A6CA-11A3070EDB1E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VK_app/controller/FriendPhotosViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "imageTapped(_:_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "FE58CBD5-26A4-40E3-A6CA-11A3070EDB1E - 1562c227c0b188d5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendPhotosViewController.imageTapped(VK_app.FriendPhotosViewCell, Foundation.IndexPath) -&gt; ()"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/VK_app%2017.53.01/VK_app/controller/FriendPhotosViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "3234">
-               </Location>
-               <Location
-                  uuid = "FE58CBD5-26A4-40E3-A6CA-11A3070EDB1E - 1562c227c0b188d5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VK_app.FriendPhotosViewController.imageTapped(VK_app.FriendPhotosViewCell, Foundation.IndexPath) -&gt; ()"
-                  moduleName = "VK_app"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Desktop/VK_app%2017.53.01/VK_app/controller/FriendPhotosViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "10274">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -265,8 +217,8 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "imageTapped(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -281,9 +233,25 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "imageTapped(_:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2DB499CF-6865-4C11-A50B-67EDD48F0247"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VK_app/controller/FriendPhotosViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "imageRectPos(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

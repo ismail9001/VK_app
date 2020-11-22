@@ -56,7 +56,7 @@ class LikeHeart: UIControl {
     }()
     
     // MARK: - Delegates
-    weak var delegate: LikeUpdatingProtocol?
+    weak var delegate: LikeUpdatingDelegate?
     
     // MARK: - Init
     override init(frame: CGRect) {

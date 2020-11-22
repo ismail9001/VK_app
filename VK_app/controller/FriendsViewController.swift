@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol UserUpdatingProtocol: class {
+protocol UserUpdatingDelegate: class {
     func updateUser(photos: [Photo], id: Int)
 }
 protocol LetterPickerDelegate: class {
     func letterPicked(_ letter: String)
 }
 
-class FriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UserUpdatingProtocol, LetterPickerDelegate {
+class FriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UserUpdatingDelegate, LetterPickerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var letterPicker: LetterPicker!
