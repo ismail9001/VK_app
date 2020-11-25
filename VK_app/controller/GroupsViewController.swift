@@ -64,21 +64,7 @@ class GroupsViewController: UITableViewController {
 
     }
     
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       guard let controller = segue.destination as? GroupsSearchViewController
-       else { return }
-       
-        controller.groups = groups
-    // Get the new view controller using segue.destination.
-    // Pass the selected object to the new view controller.
-    }*/
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 }

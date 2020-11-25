@@ -15,17 +15,15 @@ class GroupsSearchViewController: UITableViewController {
         }
     }
     var unfilteredGroups: [Group] = []
+    let groupsService = GroupsService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.placeholder = "Find a group"
         searchBar.delegate = self
         unfilteredGroups = groups
         self.hideKeyboardWhenTappedAround()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        groupsService.getGroupsList()
     }
     
     // MARK: - Table view data source
@@ -57,6 +55,7 @@ extension GroupsSearchViewController: UISearchBarDelegate {
             return
         }
         groups = unfilteredGroups.filter{ $0.title.lowercased().contains(searchText.lowercased()) }
+        groupsService.groupsSearch(searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

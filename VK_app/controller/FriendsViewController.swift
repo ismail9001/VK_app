@@ -25,6 +25,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     var unfilteredUsers: [User] = []
+    var friendsService = FriendService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         unfilteredUsers = users
         searchBar.placeholder = "Find a friend"
         searchBar.delegate = self
+        friendsService.getFriendsList()
     }
     
 // MARK: - Functions

@@ -68,6 +68,8 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
     
     var animator: UIViewPropertyAnimator!
     
+    let friendsPhotosService = FriendsPhotosService()
+    
     //MARK: - DidLoad
     
     override func viewDidLoad() {
@@ -75,6 +77,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         guard let userProperty = user else { return }
         self.title = userProperty.name
         photos = userProperty.photos
+        friendsPhotosService.getFriendsPhotosList()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

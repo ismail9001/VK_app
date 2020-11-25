@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nP7-8k-cpE">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
@@ -59,7 +59,7 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="testAction:" destination="BYZ-38-t0r" eventType="touchDown" id="BLL-rp-KdN"/>
-                                                    <segue destination="vsg-Z9-1Ua" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="vVy-tX-eer"/>
+                                                    <segue destination="vsg-Z9-1Ua" kind="presentation" identifier="" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="vVy-tX-eer"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p9Q-g6-ajq">
@@ -148,6 +148,11 @@
                             <constraint firstItem="2Zw-if-Ucj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qxA-uG-YB1"/>
                             <constraint firstItem="iAY-QN-6N1" firstAttribute="centerX" secondItem="Yrz-Um-Ht7" secondAttribute="centerX" id="wh0-Bc-aBz"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="2Zw-if-Ucj"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="loadingScreen" destination="2Zw-if-Ucj" id="f5Y-tM-Jl0"/>
@@ -163,7 +168,42 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-92.753623188405811" y="76.339285714285708"/>
+            <point key="canvasLocation" x="-204" y="885"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Ytc-Vt-uyb">
+            <objects>
+                <viewController id="nP7-8k-cpE" customClass="WebViewController" customModule="VK_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R1F-bb-NA0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hld-Wa-W7w">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="U5O-dE-Sfl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="U5O-dE-Sfl" firstAttribute="bottom" secondItem="Hld-Wa-W7w" secondAttribute="bottom" id="55P-6N-fjv"/>
+                            <constraint firstItem="Hld-Wa-W7w" firstAttribute="leading" secondItem="U5O-dE-Sfl" secondAttribute="leading" id="PYg-vr-91y"/>
+                            <constraint firstItem="U5O-dE-Sfl" firstAttribute="trailing" secondItem="Hld-Wa-W7w" secondAttribute="trailing" id="hZb-Dh-95I"/>
+                            <constraint firstItem="Hld-Wa-W7w" firstAttribute="top" secondItem="U5O-dE-Sfl" secondAttribute="top" id="iBl-go-VJj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webview" destination="Hld-Wa-W7w" id="FES-Tf-Cdk"/>
+                        <segue destination="vsg-Z9-1Ua" kind="presentation" identifier="friendsSegue" modalPresentationStyle="fullScreen" id="czs-Ne-Wwh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KEc-oE-vs5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-268" y="76"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="BO3-NV-AiN">
@@ -579,6 +619,9 @@
             <size key="intrinsicContentSize" width="35" height="20"/>
         </designable>
     </designables>
+    <inferredMetricsTieBreakers>
+        <segue reference="czs-Ne-Wwh"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="1" width="128" height="128"/>
         <image name="10" width="172" height="256"/>
