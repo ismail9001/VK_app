@@ -76,8 +76,10 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         super.viewDidLoad()
         guard let userProperty = user else { return }
         self.title = userProperty.name
-        photos = userProperty.photos
-        friendsPhotosService.getFriendsPhotosList()
+        friendsPhotosService.getFriendsPhotosList(userId: userProperty.id) { [self] (photosList) in
+            photos = photosList
+            self.collectionView.reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,7 +102,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
-        cell.friendPhoto.image = UIImage(named: photos[indexPath.row].photo)
+        cell.friendPhoto.image = imageFromUrl(url: photos[indexPath.row].photo)
         cell.photoLike.liked = photos[indexPath.row].liked
         cell.photoLike.likeCount = photos[indexPath.row].likes
         cell.photoLike.delegate = self
@@ -123,7 +125,7 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         sliderCenterView.frame = CGRect(x: rectOfCellInSuperview.minX, y: rectOfCellInSuperview.minY, width: rectOfCellInSuperview.width, height: rectOfCellInSuperview.height)
         sliderCenterView.addSubview(sliderCenterImage)
         sliderCenterView.layer.masksToBounds = true
-
+        
         
         sliderCenterImage.frame = imageRectPos(rectOfCellInTableView, rectOfCellInSuperview)
         sliderCenterView.alpha = cell.alpha
@@ -168,8 +170,8 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         
         let translation = gesture.translation(in: self.view)
         let positions = nearElements(index: sliderCenterView.tag)
-        sliderRightImage.image = UIImage(named: photos[positions[2]].photo)
-        sliderLeftImage.image = UIImage(named: photos[positions[0]].photo)
+        sliderRightImage.image = imageFromUrl(url: photos[positions[2]].photo)
+        sliderLeftImage.image = imageFromUrl(url: photos[positions[0]].photo)
         
         switch gesture.state {
         case .began:
@@ -388,63 +390,5 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
     func updateImageSlider(_ image: UIImage) {
         sliderCenterImage.image = image
         sliderCenterView.frame.origin.x = 0
-    }
-}
-//MARK: - Extensions
-
-extension FriendPhotosViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemsPerRow: CGFloat = 2
-        let paddingWidth = cellIndent * (itemsPerRow + 1)
-        let availableWidth = collectionView.frame.width - paddingWidth
-        let widthPerItem = availableWidth / itemsPerRow
-        return CGSize(width: widthPerItem, height: widthPerItem)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: cellIndent, left: cellIndent, bottom: cellIndent, right: cellIndent)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return cellIndent
-    }
-}
-
-extension UIPanGestureRecognizer {
-    
-    enum GestureDirection {
-        case Up
-        case Down
-        case Left
-        case Right
-    }
-    
-    // Get current vertical direction
-    //
-    // - Parameter target: view target
-    // - Returns: current direction
-    func verticalDirection(_ target: UIView) -> GestureDirection {
-        return self.velocity(in: target).y > 0 ? .Down : .Up
-    }
-    
-    // Get current horizontal direction
-    //
-    // - Parameter target: view target
-    // - Returns: current direction
-    func horizontalDirection(_ target: UIView) -> GestureDirection {
-        return self.velocity(in: target).x > 0 ? .Right : .Left
-    }
-    
-    // Get a tuple for current horizontal/vertical direction
-    //
-    // - Parameter target: view target
-    // - Returns: current direction
-    func versus(_ target: UIView) -> (horizontal: GestureDirection, vertical: GestureDirection) {
-        return (self.horizontalDirection(_: target), self.verticalDirection(_: target))
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class GroupsSearchViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
-    var groups = Group.manyGroup {
+    var groups: [Group] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -23,7 +23,10 @@ class GroupsSearchViewController: UITableViewController {
         searchBar.delegate = self
         unfilteredGroups = groups
         self.hideKeyboardWhenTappedAround()
-        groupsService.getGroupsList()
+        groupsService.getGroupsList() { [self] vkGroups in
+            groups = vkGroups.sorted{ $0.title.lowercased() < $1.title.lowercased()}
+            unfilteredGroups = groups
+        }
     }
     
     // MARK: - Table view data source
@@ -39,32 +42,19 @@ class GroupsSearchViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        view.translatesAutoresizingMaskIntoConstraints = false
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupsViewCell
         let group = groups[indexPath.row]
         cell.groupName.text = group.title
-        cell.groupPhoto.avatarPhoto.image = UIImage(named: group.photo)
+        cell.groupPhoto.avatarPhoto.image = imageFromUrl(url: group.photo)
         return cell
     }
 }
 
-extension GroupsSearchViewController: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchText ==  "") {
-            groups = unfilteredGroups
-            return
-        }
-        groups = unfilteredGroups.filter{ $0.title.lowercased().contains(searchText.lowercased()) }
-        groupsService.groupsSearch(searchText)
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        groups = unfilteredGroups
-    }
+extension NSLayoutConstraint {
 
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-     {
-        self.dismissKeyboard()
-     }
+    override public var description: String {
+        let id = identifier ?? ""
+        return "id: \(id), constant: \(constant)" //you may print whatever you want here
+    }
 }

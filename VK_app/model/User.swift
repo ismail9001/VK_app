@@ -6,16 +6,23 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-struct User {
+struct User{
     var id: Int
     var name: String
-    var photo: String //будет ссылкой на файл?
+    var photo: String
     var photos: [Photo]
-    //var friends: [User] = []
+    
+    init?(json: JSON) {
+        self.id = json["id"].intValue
+        self.name = json["first_name"].stringValue + " " + json["last_name"].stringValue
+        self.photo = json["photo_200_orig"].stringValue
+        self.photos = Photo.manyPhotos
+    }
     
     static var oneUser: User{
-        return User(id: Int.random(in: 1...Int.max), name: Lorem.fullName, photo: String(Int.random(in: 1...15)), photos: Photo.manyPhotos)
+        return User(json: "")!
     }
     
     static var manyUsers: [User] {

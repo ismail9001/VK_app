@@ -15,6 +15,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         let nib = UINib.init(nibName: "NewsViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "NewsViewCell")
+        //self.navigationItem.title = "Your Title"
     }
 
     // MARK: - Table view data source

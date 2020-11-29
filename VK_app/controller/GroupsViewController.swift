@@ -25,11 +25,11 @@ class GroupsViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        view.translatesAutoresizingMaskIntoConstraints = false
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupsViewCell
         let group = groups[indexPath.row]
         cell.groupName.text = group.title
-        cell.groupPhoto.avatarPhoto.image = UIImage(named: group.photo)
-        //cell.
+        cell.groupPhoto.avatarPhoto.image = imageFromUrl(url: group.photo)
         return cell
     }
     
@@ -56,12 +56,12 @@ class GroupsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // Если была нажата кнопка «Удалить»
         if editingStyle == .delete {
-        // Удаляем группу из массива
+            // Удаляем группу из массива
             groups.remove(at: indexPath.row)
-        // И удаляем строку из таблицы
+            // И удаляем строку из таблицы
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-
+        
     }
     
     override func viewDidLoad() {

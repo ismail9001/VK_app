@@ -19,7 +19,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var letterPicker: LetterPicker!
     @IBOutlet weak var searchBar: UISearchBar!
-    var users = User.manyUsers.sorted{ $0.name.lowercased() < $1.name.lowercased() } {
+    var users: [User] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -35,13 +35,15 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.register(headerSection, forHeaderFooterViewReuseIdentifier: "CustomHeaderView")
         //Looks for single or multiple taps.
         self.hideKeyboardWhenTappedAround()
-        unfilteredUsers = users
         searchBar.placeholder = "Find a friend"
         searchBar.delegate = self
-        friendsService.getFriendsList()
+        friendsService.getFriendsList() { [self] (friends) in
+            users = friends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
+            unfilteredUsers = users
+        }
     }
     
-// MARK: - Functions
+    // MARK: - Functions
     
     func rowCounting(_ indexPath: IndexPath) -> Int{
         var i = 0
@@ -60,7 +62,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         return letterPicker.letters
     }
     
-// MARK: - Table view data source
+    // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -91,13 +93,12 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         let rowCount = rowCounting(indexPath)
         let user = users[rowCount]
         cell.friendName.text = user.name
-        cell.friendPhoto.avatarPhoto.image = UIImage(named: user.photo)
+        cell.friendPhoto.avatarPhoto.image = imageFromUrl(url: user.photo)
         return cell
     }
     
-// MARK: - Navigation
+    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let controller = segue.destination as? FriendPhotosViewController,
               let indexPath = tableView.indexPathForSelectedRow
@@ -105,11 +106,9 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         let rowCount = rowCounting(indexPath)
         controller.user = users[rowCount]
         controller.delegate = self
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
     
-// MARK: - LetterPickerDelegate
+    // MARK: - LetterPickerDelegate
     
     func letterPicked(_ letter: String) {
         guard let index = letterPicker.letters.firstIndex(where: {$0.lowercased().prefix(1) == letter.lowercased()}) else { return }
@@ -117,7 +116,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
-// MARK: - UserUpdateDelegate
+    // MARK: - UserUpdateDelegate
     
     func updateUser(photos: [Photo], id: Int) {
         if let row = users.firstIndex(where: {$0.id == id}) {
@@ -127,42 +126,4 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
             unfilteredUsers[row].photos = photos
         }
     }
-}
-
-// MARK: - Extensions
-
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-extension FriendsViewController: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if (searchText ==  "") {
-            users = unfilteredUsers
-            return
-        }
-        users = unfilteredUsers.filter{ $0.name.lowercased().contains(searchText.lowercased()) }
-        let allLetters = users.map { String($0.name.uppercased().prefix(1))}
-        letterPicker.letters = Array(Set(allLetters)).sorted()
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        users = unfilteredUsers
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-     {
-        self.dismissKeyboard()
-     }
 }

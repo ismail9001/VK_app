@@ -316,7 +316,7 @@
                             <constraint firstItem="b7Z-Zu-SIt" firstAttribute="bottom" secondItem="2LZ-HP-Gya" secondAttribute="bottom" id="f8K-Po-FFS"/>
                             <constraint firstItem="2LZ-HP-Gya" firstAttribute="trailing" secondItem="htL-Hc-R5D" secondAttribute="trailing" constant="8" id="qsS-dx-KII"/>
                             <constraint firstItem="b7Z-Zu-SIt" firstAttribute="leading" secondItem="2LZ-HP-Gya" secondAttribute="leading" id="wkX-6R-Ejs"/>
-                            <constraint firstAttribute="trailing" secondItem="b7Z-Zu-SIt" secondAttribute="trailing" id="zBF-cp-8bi"/>
+                            <constraint firstItem="2LZ-HP-Gya" firstAttribute="trailing" secondItem="b7Z-Zu-SIt" secondAttribute="trailing" id="zBF-cp-8bi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Friends" id="il9-jJ-3KH"/>
@@ -350,7 +350,7 @@
                                             <rect key="frame" x="5" y="5" width="81" height="81"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="81" id="GdR-4q-XZi"/>
-                                                <constraint firstAttribute="height" constant="81" id="OQU-Ao-BEv"/>
+                                                <constraint firstAttribute="height" priority="999" constant="81" id="OQU-Ao-BEv"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="image" keyPath="image" value="1"/>
@@ -451,18 +451,18 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="91" id="NFM-st-zhG" userLabel="Cell" customClass="GroupsViewCell" customModule="VK_app" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="91"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="NFM-st-zhG" userLabel="Cell" customClass="GroupsViewCell" customModule="VK_app" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NFM-st-zhG" id="mrr-GN-tRa">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="91"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LY-5K-bcH" userLabel="Group photo" customClass="Avatar" customModule="VK_app" customModuleProvider="target">
-                                            <rect key="frame" x="5" y="5" width="81" height="81"/>
+                                            <rect key="frame" x="5" y="5" width="81" height="81.5"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="81" id="quG-aB-zZ2"/>
-                                                <constraint firstAttribute="width" constant="81" id="zDm-rf-7bk"/>
+                                                <constraint firstAttribute="height" priority="999" constant="81" identifier="idGS1" id="quG-aB-zZ2"/>
+                                                <constraint firstAttribute="width" constant="81" identifier="idGS2" id="zDm-rf-7bk"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="image" keyPath="image" value="1"/>
@@ -475,21 +475,21 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCr-Qf-Mta">
-                                            <rect key="frame" x="106" y="34.5" width="41.5" height="22"/>
+                                            <rect key="frame" x="106" y="34.5" width="41.5" height="22.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="NCr-Qf-Mta" secondAttribute="bottom" constant="34.5" id="14m-rI-RDN"/>
-                                        <constraint firstItem="7LY-5K-bcH" firstAttribute="leading" secondItem="mrr-GN-tRa" secondAttribute="leading" constant="5" id="RUB-uQ-g0d"/>
-                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="NCr-Qf-Mta" secondAttribute="trailing" constant="267" id="Uvc-vh-vTf"/>
-                                        <constraint firstItem="NCr-Qf-Mta" firstAttribute="centerY" secondItem="mrr-GN-tRa" secondAttribute="centerY" id="ahL-Xf-EpN"/>
-                                        <constraint firstItem="NCr-Qf-Mta" firstAttribute="top" secondItem="mrr-GN-tRa" secondAttribute="top" constant="34.5" id="kcS-E7-qwB"/>
-                                        <constraint firstAttribute="bottom" secondItem="7LY-5K-bcH" secondAttribute="bottom" constant="5" id="mbJ-9t-DH1"/>
-                                        <constraint firstItem="NCr-Qf-Mta" firstAttribute="leading" secondItem="7LY-5K-bcH" secondAttribute="trailing" constant="20" id="sY6-A3-K4k"/>
-                                        <constraint firstItem="7LY-5K-bcH" firstAttribute="top" secondItem="mrr-GN-tRa" secondAttribute="top" constant="5" id="xXV-qk-T5u"/>
+                                        <constraint firstAttribute="bottom" secondItem="NCr-Qf-Mta" secondAttribute="bottom" constant="34.5" identifier="idGS6" id="14m-rI-RDN"/>
+                                        <constraint firstItem="7LY-5K-bcH" firstAttribute="leading" secondItem="mrr-GN-tRa" secondAttribute="leading" constant="5" identifier="idGS3" id="RUB-uQ-g0d"/>
+                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="NCr-Qf-Mta" secondAttribute="trailing" constant="267" identifier="idGS7" id="Uvc-vh-vTf"/>
+                                        <constraint firstItem="NCr-Qf-Mta" firstAttribute="centerY" secondItem="mrr-GN-tRa" secondAttribute="centerY" identifier="idGS8" id="ahL-Xf-EpN"/>
+                                        <constraint firstItem="NCr-Qf-Mta" firstAttribute="top" secondItem="mrr-GN-tRa" secondAttribute="top" constant="34.5" identifier="idGS9" id="kcS-E7-qwB"/>
+                                        <constraint firstAttribute="bottom" secondItem="7LY-5K-bcH" secondAttribute="bottom" constant="5" identifier="idGS4" id="mbJ-9t-DH1"/>
+                                        <constraint firstItem="NCr-Qf-Mta" firstAttribute="leading" secondItem="7LY-5K-bcH" secondAttribute="trailing" constant="20" identifier="idGS10" id="sY6-A3-K4k"/>
+                                        <constraint firstItem="7LY-5K-bcH" firstAttribute="top" secondItem="mrr-GN-tRa" secondAttribute="top" constant="5" identifier="idGS5" id="xXV-qk-T5u"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

@@ -6,14 +6,20 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct Group: Equatable {
     
     var title: String
     var photo: String
     
+    init?(json: JSON) {
+        self.title = json["name"].stringValue
+        self.photo = json["photo_100"].stringValue
+    }
+    
     static var oneGroup: Group {
-        return Group(title: Lorem.title, photo: "groups/\(Int.random(in: 1...15))g")
+        return Group(json: "")!
     }
     
     static var manyGroup: [Group] {

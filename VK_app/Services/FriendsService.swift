@@ -7,12 +7,13 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class FriendService {
     
     let baseUrl = Config.storedConfig.apiUrl
     
-    func getFriendsList() {
+    func getFriendsList(completion: @escaping ([User]) -> Void){
         
         let path = "/method/friends.get?"
         // параметры
@@ -24,7 +25,15 @@ class FriendService {
         
         let url = baseUrl+path
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
-            print(response.value as Any)
+            guard let data = response.data else {return}
+            do {
+                let json = try JSON(data: data)
+                let users = json["response"]["items"].arrayValue.compactMap{ User(json: $0) }
+                completion(users)
+            } catch {
+                print (error)
+                completion([])
+            }
         }
     }
 }

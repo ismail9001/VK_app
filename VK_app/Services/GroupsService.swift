@@ -7,12 +7,13 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class GroupsService {
     
     let baseUrl = Config.storedConfig.apiUrl
 
-    func getGroupsList() {
+    func getGroupsList (completion: @escaping ([Group]) -> Void){
         
         let path = "/method/groups.get?"
         // параметры
@@ -24,7 +25,15 @@ class GroupsService {
         
         let url = baseUrl+path
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
-            print(response.value as Any)
+            guard let data = response.data else {return}
+            do {
+                let json = try JSON(data: data)
+                let groups = json["response"]["items"].arrayValue.compactMap{ Group(json: $0) }
+                completion(groups)
+            } catch {
+                print (error)
+                completion([])
+            }
         }
     }
     
