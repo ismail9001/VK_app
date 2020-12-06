@@ -35,7 +35,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let newsCell = news[indexPath.row]
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-        cell.authorPhoto.avatarPhoto.image = UIImage(named: newsCell.author.photo)
+        cell.authorPhoto.avatarPhoto.image = UIImage(named: newsCell.author.photoUrl)
         cell.authorName.text = newsCell.author.name
         cell.newsDate.text = formatter.string(from: newsCell.newsDate)
         cell.newsImage.image = UIImage(named: newsCell.newsImage)

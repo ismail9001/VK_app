@@ -9,11 +9,7 @@ import UIKit
 
 class GroupsSearchViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
-    var groups: [Group] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var groups: [Group] = []
     var unfilteredGroups: [Group] = []
     let groupsService = GroupsService()
     
@@ -25,6 +21,7 @@ class GroupsSearchViewController: UITableViewController {
         self.hideKeyboardWhenTappedAround()
         groupsService.getGroupsList() { [self] vkGroups in
             groups = vkGroups.sorted{ $0.title.lowercased() < $1.title.lowercased()}
+            self.tableView.reloadData()
             unfilteredGroups = groups
         }
     }
@@ -45,8 +42,15 @@ class GroupsSearchViewController: UITableViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupsViewCell
         let group = groups[indexPath.row]
+        if let data = group.photo {
+            cell.groupPhoto.avatarPhoto.image = UIImageView.imageFromData(data: data)
+        } else {
+            cell.groupPhoto.avatarPhoto.image = UIImage(named: "camera_200")
+            cell.groupPhoto.avatarPhoto.load(url: group.photoUrl) {[self] (loadedImage) in
+                groups[indexPath.row].photo = loadedImage.pngData()
+            }
+        }
         cell.groupName.text = group.title
-        cell.groupPhoto.avatarPhoto.image = imageFromUrl(url: group.photo)
         return cell
     }
 }

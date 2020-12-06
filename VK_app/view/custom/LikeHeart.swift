@@ -6,6 +6,10 @@
 //
 import UIKit
 
+protocol LikeUpdatingDelegate: class {
+    func likeUnlikeFunc(_ sender: UIView)
+}
+
 @IBDesignable
 class LikeHeart: UIControl {
     
@@ -87,15 +91,6 @@ class LikeHeart: UIControl {
         likeButton.setImage(liked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart"), for: .normal)
         likeCount = liked ? likeCount + 1 : likeCount - 1
     }
-    //ВОПРОС - как иначе вытащить порядок ячейки? передавать ее изначально в этот вью?
-    private func getIndexPath() -> IndexPath? {
-        guard let superView = self.superview?.superview?.superview as? UICollectionView else {
-            print("superview is not a cell")
-            return nil
-        }
-        let indexPath = superView.indexPath(for: self.superview?.superview as! UICollectionViewCell )
-        return indexPath
-    }
     
     func getGroupedViews (_ views: [UIView])-> UIView{
         let stackView = UIStackView()
@@ -108,10 +103,7 @@ class LikeHeart: UIControl {
     //MARK: - Actions
     @objc private func likeTap(_ sender: UIView) {
         liked.toggle()
-        if let indexPath = getIndexPath()
-        {
-            delegate?.likeUnlikeFunc(indexPath: indexPath)
-        }
+        delegate?.likeUnlikeFunc(self)
     }
     
     //MARK: - Animation

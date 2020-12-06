@@ -7,25 +7,23 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-struct User{
-    var id: Int
-    var name: String
-    var photo: String
-    var photos: [Photo]
+class User: Object{
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var photoUrl: String = ""
+    @objc dynamic var photo: Data? = nil
+    let photos = List<Photo>()
     
-    init?(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         self.id = json["id"].intValue
         self.name = json["first_name"].stringValue + " " + json["last_name"].stringValue
-        self.photo = json["photo_200_orig"].stringValue
-        self.photos = Photo.manyPhotos
+        self.photoUrl = json["photo_100"].stringValue
     }
     
     static var oneUser: User{
-        return User(json: "")!
-    }
-    
-    static var manyUsers: [User] {
-        return (1...20).map{_ in User.oneUser}
+        return User(json: "")
     }
 }

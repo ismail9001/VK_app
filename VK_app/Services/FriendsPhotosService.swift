@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class FriendsPhotosService {
     
-    let baseUrl = Config.storedConfig.apiUrl
+    let baseUrl = Config.apiUrl
 
     func getFriendsPhotosList(userId: Int, completion: @escaping ([Photo]) -> Void){
         
@@ -22,7 +22,7 @@ class FriendsPhotosService {
             "owner_id": userId,
             "photo_sizes": 1,
             "access_token": Session.storedSession.token,
-            "v": Config.storedConfig.apiVersion
+            "v": Config.apiVersion
         ]
         
         let url = baseUrl+path

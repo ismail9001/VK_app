@@ -169,10 +169,10 @@
             filePath = "VK_app/view/custom/LikeHeart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "setup()"
-            landmarkType = "7">
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "LikeHeart"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,8 +185,8 @@
             filePath = "VK_app/view/custom/LikeHeart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "setup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -201,9 +201,9 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "imageTapped(_:_:)"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,8 +217,8 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "imageTapped(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -233,8 +233,8 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "imageTapped(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -249,8 +249,8 @@
             filePath = "VK_app/controller/FriendPhotosViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "imageRectPos(_:_:)"
             landmarkType = "7">
          </BreakpointContent>

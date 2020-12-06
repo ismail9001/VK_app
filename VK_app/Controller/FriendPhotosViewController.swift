@@ -7,12 +7,8 @@
 
 import UIKit
 
-protocol LikeUpdatingDelegate: class {
-    func likeUnlikeFunc(indexPath: IndexPath)
-}
+class FriendPhotosViewController: UICollectionViewController, LikeUpdatingCellProtocol {
 
-class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelegate {
-    
     let cellIndent: CGFloat = 20
     var photos : [Photo] = []
     var user : User?
@@ -96,16 +92,23 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! FriendPhotosViewCell
-        cell.friendPhoto.image = imageFromUrl(url: photos[indexPath.row].photo)
+        if let data = photos[indexPath.row].photo {
+                cell.friendPhoto.image = UIImageView.imageFromData(data: data)
+        }
+        else {
+            cell.friendPhoto.image = UIImage(named: "camera_200")
+            cell.friendPhoto.load(url: photos[indexPath.row].photoUrl) {[self] (loadedImage) in
+                photos[indexPath.row].photo = loadedImage.pngData()
+            }
+        }
         cell.photoLike.liked = photos[indexPath.row].liked
         cell.photoLike.likeCount = photos[indexPath.row].likes
-        cell.photoLike.delegate = self
+        cell.delegate = self
         return cell
     }
     
@@ -125,7 +128,6 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         sliderCenterView.frame = CGRect(x: rectOfCellInSuperview.minX, y: rectOfCellInSuperview.minY, width: rectOfCellInSuperview.width, height: rectOfCellInSuperview.height)
         sliderCenterView.addSubview(sliderCenterImage)
         sliderCenterView.layer.masksToBounds = true
-        
         
         sliderCenterImage.frame = imageRectPos(rectOfCellInTableView, rectOfCellInSuperview)
         sliderCenterView.alpha = cell.alpha
@@ -170,9 +172,8 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         
         let translation = gesture.translation(in: self.view)
         let positions = nearElements(index: sliderCenterView.tag)
-        sliderRightImage.image = imageFromUrl(url: photos[positions[2]].photo)
-        sliderLeftImage.image = imageFromUrl(url: photos[positions[0]].photo)
-        
+        sliderRightImage.load(url: photos[positions[2]].photoUrl) {_ in }
+        sliderLeftImage.load(url: photos[positions[0]].photoUrl) {_ in }
         switch gesture.state {
         case .began:
             animator = UIViewPropertyAnimator(duration: 1, curve: .linear)
@@ -359,7 +360,10 @@ class FriendPhotosViewController: UICollectionViewController, LikeUpdatingDelega
         }
     }
     //расчет поведения лайка
-    func likeUnlikeFunc(indexPath: IndexPath) {
+    
+    func cellLikeUpdating(_ sender: UIView) {
+        let cell = sender
+        guard let indexPath = self.collectionView.indexPath(for: cell as! UICollectionViewCell) else { return }
         photos[indexPath.row].likes = photos[indexPath.row].liked ? photos[indexPath.row].likes - 1 : photos[indexPath.row].likes + 1
         photos[indexPath.row].liked.toggle()
         delegate?.updateUser(photos: photos, id: user?.id ?? 0)

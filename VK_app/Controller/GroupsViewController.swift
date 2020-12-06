@@ -29,7 +29,14 @@ class GroupsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GroupsViewCell
         let group = groups[indexPath.row]
         cell.groupName.text = group.title
-        cell.groupPhoto.avatarPhoto.image = imageFromUrl(url: group.photo)
+        if let data = group.photo {
+            cell.groupPhoto.avatarPhoto.image = UIImageView.imageFromData(data: data)
+        } else {
+            cell.groupPhoto.avatarPhoto.image = UIImage(named: "camera_200")
+            cell.groupPhoto.avatarPhoto.load(url: group.photoUrl) {[self] (loadedImage) in
+                groups[indexPath.row].photo = loadedImage.pngData()
+            }
+        }
         return cell
     }
     

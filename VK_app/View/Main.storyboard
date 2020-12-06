@@ -256,16 +256,13 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smm-3V-uCK" customClass="Avatar" customModule="VK_app" customModuleProvider="target">
                                                     <rect key="frame" x="5" y="5" width="50" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="Dic-Y9-Nhe"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="50" id="Dic-Y9-Nhe"/>
                                                         <constraint firstAttribute="width" secondItem="smm-3V-uCK" secondAttribute="height" multiplier="1:1" id="LIN-rj-IhN"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="10"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                             <real key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                            <color key="value" systemColor="labelColor"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                             <real key="value" value="0.5"/>
@@ -316,7 +313,7 @@
                             <constraint firstItem="b7Z-Zu-SIt" firstAttribute="bottom" secondItem="2LZ-HP-Gya" secondAttribute="bottom" id="f8K-Po-FFS"/>
                             <constraint firstItem="2LZ-HP-Gya" firstAttribute="trailing" secondItem="htL-Hc-R5D" secondAttribute="trailing" constant="8" id="qsS-dx-KII"/>
                             <constraint firstItem="b7Z-Zu-SIt" firstAttribute="leading" secondItem="2LZ-HP-Gya" secondAttribute="leading" id="wkX-6R-Ejs"/>
-                            <constraint firstItem="2LZ-HP-Gya" firstAttribute="trailing" secondItem="b7Z-Zu-SIt" secondAttribute="trailing" id="zBF-cp-8bi"/>
+                            <constraint firstAttribute="trailing" secondItem="b7Z-Zu-SIt" secondAttribute="trailing" id="zBF-cp-8bi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Friends" id="il9-jJ-3KH"/>
@@ -350,7 +347,7 @@
                                             <rect key="frame" x="5" y="5" width="81" height="81"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="81" id="GdR-4q-XZi"/>
-                                                <constraint firstAttribute="height" priority="999" constant="81" id="OQU-Ao-BEv"/>
+                                                <constraint firstAttribute="height" constant="81" id="OQU-Ao-BEv"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="image" keyPath="image" value="1"/>
@@ -455,7 +452,7 @@
                                 <rect key="frame" x="0.0" y="72" width="414" height="92"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NFM-st-zhG" id="mrr-GN-tRa">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="91.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LY-5K-bcH" userLabel="Group photo" customClass="Avatar" customModule="VK_app" customModuleProvider="target">
@@ -475,7 +472,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCr-Qf-Mta">
-                                            <rect key="frame" x="106" y="34.5" width="41.5" height="22.5"/>
+                                            <rect key="frame" x="106" y="34.5" width="41.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -620,7 +617,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="czs-Ne-Wwh"/>
+        <segue reference="vVy-tX-eer"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1" width="128" height="128"/>
@@ -629,9 +626,6 @@
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

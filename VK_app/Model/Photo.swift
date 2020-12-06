@@ -7,28 +7,27 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-struct Photo {
+class Photo: Object {
     
-    var liked: Bool
-    var likes: Int
-    var photo: String
+    @objc dynamic var liked: Bool = false
+    @objc dynamic var likes: Int = 0
+    @objc dynamic var photoUrl: String = ""
+    @objc dynamic var photo: Data? = nil
     
-    init?(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         self.liked = json["likes"]["user_likes"].intValue == 0 ? false : true
         self.likes = json["likes"]["count"].intValue
-        self.photo = ""
-        for (index, object) in json["sizes"] {
+        self.photoUrl = ""
+        for (_, object) in json["sizes"] {
             if object["type"] == "x"
-            {self.photo = object["url"].stringValue}
+            {self.photoUrl = object["url"].stringValue}
         }
     }
     
     static var onePhoto: Photo{
-        return Photo(json: "")!
-    }
-    
-    static var manyPhotos: [Photo] {
-        return (1...20).map{_ in Photo.onePhoto}
+        return Photo(json: "")
     }
 }

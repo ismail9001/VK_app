@@ -8,10 +8,6 @@
 import Foundation
 
 class Config {
-    
-    static let storedConfig = Config()
-    private init(){}
-    
-    let apiUrl: String = "https://api.vk.com"
-    let apiVersion: String = "5.126"
+    static let apiUrl: String = "https://api.vk.com"
+    static let apiVersion: String = "5.126"
 }

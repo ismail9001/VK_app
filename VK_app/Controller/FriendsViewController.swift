@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Kingfisher
+import RealmSwift
 
 protocol UserUpdatingDelegate: class {
     func updateUser(photos: [Photo], id: Int)
@@ -19,11 +21,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var letterPicker: LetterPicker!
     @IBOutlet weak var searchBar: UISearchBar!
-    var users: [User] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var users: [User] = []
     var unfilteredUsers: [User] = []
     var friendsService = FriendService()
     
@@ -39,8 +37,11 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         searchBar.delegate = self
         friendsService.getFriendsList() { [self] (friends) in
             users = friends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
+            tableView.reloadData()
             unfilteredUsers = users
+            //saveUserData(users)
         }
+        showUserData()
     }
     
     // MARK: - Functions
@@ -92,8 +93,16 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FriendsViewCell
         let rowCount = rowCounting(indexPath)
         let user = users[rowCount]
+        if let data = user.photo {
+            cell.friendPhoto.avatarPhoto.image = UIImageView.imageFromData(data: data)
+        }
+        else {
+            cell.friendPhoto.avatarPhoto.image = UIImage(named: "camera_200")
+            cell.friendPhoto.avatarPhoto.load(url: user.photoUrl) {[self] (loadedImage) in
+                users[rowCount].photo = cell.friendPhoto.avatarPhoto.image?.pngData()
+            }
+        }
         cell.friendName.text = user.name
-        cell.friendPhoto.avatarPhoto.image = imageFromUrl(url: user.photo)
         return cell
     }
     
@@ -120,10 +129,38 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func updateUser(photos: [Photo], id: Int) {
         if let row = users.firstIndex(where: {$0.id == id}) {
-            users[row].photos = photos
+            users[row].photos.removeAll()
+            photos.forEach{ photo in
+                users[row].photos.append(photo)
+            }
         }
         if let row = unfilteredUsers.firstIndex(where: {$0.id == id}) {
-            unfilteredUsers[row].photos = photos
+            unfilteredUsers[row].photos.removeAll()
+            photos.forEach{ photo in
+                unfilteredUsers[row].photos.append(photo)
+            }
+        }
+    }
+    
+    func saveUserData(_ users: [User]) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(users)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func showUserData() {
+        do {
+            let realm = try Realm()
+            let users = realm.objects(User.self)
+            print(users)
+        } catch {
+            print(error)
         }
     }
 }
+

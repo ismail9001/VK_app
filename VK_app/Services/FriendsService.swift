@@ -11,16 +11,16 @@ import SwiftyJSON
 
 class FriendService {
     
-    let baseUrl = Config.storedConfig.apiUrl
+    let baseUrl = Config.apiUrl
     
     func getFriendsList(completion: @escaping ([User]) -> Void){
         
         let path = "/method/friends.get?"
         // параметры
         let parameters: Parameters = [
-            "fields": "nickname, bdate, city, country, photo_200_orig",
+            "fields": "photo_100",
             "access_token": Session.storedSession.token,
-            "v": Config.storedConfig.apiVersion
+            "v": Config.apiVersion
         ]
         
         let url = baseUrl+path

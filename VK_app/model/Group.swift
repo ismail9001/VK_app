@@ -7,22 +7,21 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-struct Group: Equatable {
+class Group: Object {
     
-    var title: String
-    var photo: String
+    @objc dynamic var title: String = ""
+    @objc dynamic var photoUrl: String = ""
+    @objc dynamic var photo: Data? = nil
     
-    init?(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         self.title = json["name"].stringValue
-        self.photo = json["photo_100"].stringValue
+        self.photoUrl = json["photo_100"].stringValue
     }
     
     static var oneGroup: Group {
-        return Group(json: "")!
-    }
-    
-    static var manyGroup: [Group] {
-        return (1...20).map{_ in Group.oneGroup}
+        return Group(json: "")
     }
 }

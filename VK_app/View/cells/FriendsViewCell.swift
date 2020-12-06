@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendsViewCell: UITableViewCell {
     
@@ -15,4 +16,10 @@ class FriendsViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        friendPhoto.avatarPhoto.kf.cancelDownloadTask()
+        friendPhoto.avatarPhoto.image = nil
+        }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class GroupsViewCell: UITableViewCell {
     
@@ -15,5 +16,11 @@ class GroupsViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        groupPhoto.avatarPhoto.kf.cancelDownloadTask()
+        groupPhoto.avatarPhoto.image = nil
+        }
 
 }

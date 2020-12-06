@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class GroupsService {
     
-    let baseUrl = Config.storedConfig.apiUrl
+    let baseUrl = Config.apiUrl
 
     func getGroupsList (completion: @escaping ([Group]) -> Void){
         
@@ -20,9 +20,8 @@ class GroupsService {
         let parameters: Parameters = [
             "extended": 1,
             "access_token": Session.storedSession.token,
-            "v": Config.storedConfig.apiVersion
+            "v": Config.apiVersion
         ]
-        
         let url = baseUrl+path
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             guard let data = response.data else {return}
@@ -44,9 +43,8 @@ class GroupsService {
         let parameters: Parameters = [
             "q": search,
             "access_token": Session.storedSession.token,
-            "v": Config.storedConfig.apiVersion
+            "v": Config.apiVersion
         ]
-        
         let url = baseUrl+path
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             print(response.value as Any)

@@ -6,13 +6,29 @@
 //
 
 import UIKit
+import Kingfisher
 
-class FriendPhotosViewCell: UICollectionViewCell {
+protocol LikeUpdatingCellProtocol: class {
+    func cellLikeUpdating(_ sender: UIView)
+}
+
+class FriendPhotosViewCell: UICollectionViewCell, LikeUpdatingDelegate {
     @IBOutlet weak var friendPhoto: UIImageView!
     @IBOutlet weak var photoLike: LikeHeart!
-    
+    weak var delegate: LikeUpdatingCellProtocol?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.photoLike.delegate = self
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        friendPhoto.kf.cancelDownloadTask()
+        friendPhoto.image = nil
+    }
+    
+    func likeUnlikeFunc(_ sender: UIView) {
+        delegate?.cellLikeUpdating(self)
     }
 }
